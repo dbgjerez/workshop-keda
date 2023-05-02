@@ -24,14 +24,15 @@ func NewStockService() *StockService {
 		Topic:                  "stock",
 		Balancer:               &kafka.LeastBytes{},
 		AllowAutoTopicCreation: true,
+		Async:                  true,
 	}
 	return &StockService{w: w}
 }
 
 func (service *StockService) CreateStock(stock dto.Stock) error {
 	msg, _ := json.Marshal((stock))
-	messages := []kafka.Message{{Value: msg}}
-	err := service.w.WriteMessages(context.TODO(), messages...)
+	message := kafka.Message{Value: msg}
+	err := service.w.WriteMessages(context.TODO(), message)
 	if err != nil {
 		log.Printf("%v", err)
 		return err
