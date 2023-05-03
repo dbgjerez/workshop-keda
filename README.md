@@ -31,5 +31,5 @@ oc apply -f argocd/cluster-role.yaml
 Now, we apply the bootstrap application:
 
 ```bash
-oc apply -f argocd/argocd-app-bootstrap.yaml
+oc apply -f argocd/bootstrap.yaml
 ```
