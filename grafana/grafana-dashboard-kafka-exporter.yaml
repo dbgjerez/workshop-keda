@@ -5,7 +5,6 @@ metadata:
   labels:
     app: grafana
 spec:
-  name: kafka-exporter.json
   json: |
     {
       "_comment" : "Based on https://grafana.com/grafana/dashboards/7589",
