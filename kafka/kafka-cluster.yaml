@@ -39,6 +39,8 @@ spec:
         configMapKeyRef:
           name: kafka-metrics
           key: kafka-metrics-config.yml 
+    authorization:
+      type: simple
     storage:
       type: ephemeral
   zookeeper:
