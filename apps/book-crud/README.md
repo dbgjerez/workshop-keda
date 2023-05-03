@@ -20,3 +20,6 @@ You can then execute your native executable with: `./target/book-crud-1.0.0-SNAP
 
 ## Build a native container
 
+```shell script
+podman build --no-cache -f src/main/docker/Dockerfile.native-micro -t quay.io/dborrego/book-crud:0.1 .
+```
