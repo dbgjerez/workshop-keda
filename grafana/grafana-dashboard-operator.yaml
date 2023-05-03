@@ -4,10 +4,8 @@ metadata:
   name: strimzi-operators-dashboard
   labels:
     app: grafana
-  finalizers: []
 spec:
-  name: strimzi-operators.json
-  json: >
+  json: |
     {
       "__inputs": [
         {

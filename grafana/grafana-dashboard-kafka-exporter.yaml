@@ -4,10 +4,9 @@ metadata:
   name: kafka-exporter-dashboard
   labels:
     app: grafana
-  finalizers: []
 spec:
   name: kafka-exporter.json
-  json: >
+  json: |
     {
       "_comment" : "Based on https://grafana.com/grafana/dashboards/7589",
       "__requires": [

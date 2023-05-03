@@ -4,10 +4,8 @@ metadata:
   name: kafka-dashboard
   labels:
     app: grafana
-  finalizers: []
 spec:
-  name: kafka.json
-  json: >
+  json: |
     {
       "__requires": [
         {
