@@ -8,7 +8,7 @@ spec:
     namespace: kafka
     server: "https://kubernetes.default.svc"
   source:
-    path: operator
+    path: kafka
     repoURL: "https://github.com/dbgjerez/workshop-keda"
     targetRevision: argocd
   project: default

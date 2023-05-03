@@ -8,7 +8,7 @@ spec:
     namespace: openshift-gitops
     server: "https://kubernetes.default.svc"
   source:
-    path: operators
+    path: operator
     repoURL: "https://github.com/dbgjerez/workshop-keda"
     targetRevision: argocd
   project: default
