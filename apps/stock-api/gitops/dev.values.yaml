@@ -1,2 +1,8 @@
 service:
   version: 0.1.1
+deployment:
+  replicas: 1
+config:
+  env:
+    - name: KAFKA_BROKER
+      value: kafka.kafka.svc.cluster.local
