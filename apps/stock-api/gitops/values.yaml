@@ -17,5 +17,11 @@ deployment:
       cpu: 50m
       memory: 16Mi
 
+kafka:
+  name: kafka
+  topic:
+    stock:
+      name: stock
+
 config:
   env:
