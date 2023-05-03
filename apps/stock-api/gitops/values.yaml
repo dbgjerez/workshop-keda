@@ -1,0 +1,21 @@
+service:
+  name: stock-api
+  image: quay.io/dborrego/stock-api
+  version: 0.1
+
+deployment:
+  replicas: 2
+  port: 8080
+  health:
+    liveness: /api/v1/health
+    readiness: /api/v1/health
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 16Mi
+
+config:
+  env:
