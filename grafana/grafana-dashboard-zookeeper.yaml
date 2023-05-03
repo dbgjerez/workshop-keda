@@ -4,7 +4,6 @@ metadata:
   name: zookeeper-dashboard
   labels:
     app: grafana
-  finalizers: []
 spec:
   json: |
     {
