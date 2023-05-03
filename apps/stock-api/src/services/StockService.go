@@ -5,13 +5,14 @@ import (
 	"encoding/json"
 	"log"
 	"stock-api/domain/dto"
+	"stock-api/utils"
 
 	"github.com/segmentio/kafka-go"
 )
 
 const (
-	kafkaTopic  = "KAFKA_STOCK_TOPIC"
 	kafkaBroker = "KAFKA_BROKER"
+	kafkaTopic  = "KAFKA_STOCK_TOPIC"
 )
 
 type StockService struct {
@@ -19,9 +20,11 @@ type StockService struct {
 }
 
 func NewStockService() *StockService {
+	kafkaBroker := utils.GetEnv(kafkaBroker, "localhost:9092")
+	stockTopic := utils.GetEnv(kafkaTopic, "stock")
 	w := &kafka.Writer{
-		Addr:                   kafka.TCP("localhost:9092"),
-		Topic:                  "stock",
+		Addr:                   kafka.TCP(kafkaBroker),
+		Topic:                  stockTopic,
 		Balancer:               &kafka.LeastBytes{},
 		AllowAutoTopicCreation: true,
 		Async:                  true,
