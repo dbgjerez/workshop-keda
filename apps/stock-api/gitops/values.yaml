@@ -19,3 +19,5 @@ deployment:
 
 config:
   env:
+    - name: KAFKA_BROKER
+      value: kafka.kafka.svc.cluster.local
