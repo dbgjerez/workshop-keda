@@ -6,7 +6,6 @@ metadata:
     app: grafana
   finalizers: []
 spec:
-  name: zookeper.json
   json: >
     {
       "__requires": [
