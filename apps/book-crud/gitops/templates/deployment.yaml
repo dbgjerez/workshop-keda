@@ -43,9 +43,9 @@ spec:
               value: {{ $envItem.value | quote }}
           {{- end }}
           {{- end }}
-            - name: mp.messaging.incoming.books-new.topic
+            - name: mp.messaging.incoming.stock.topic
               value: {{ .Values.kafka.topic.stock.name }}
-            - name: mp.messaging.incoming.books-new.group.id
+            - name: mp.messaging.incoming.stock.group.id
               value: cg-{{ .Values.service.name }}
             - name: KAFKA_SSL_KEYSTORE_LOCATION
               value: /certs/user.p12
