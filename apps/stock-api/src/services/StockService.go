@@ -32,6 +32,7 @@ func NewStockService() *StockService {
 	clientKeyFile := utils.GetEnv(clientKeyPem, "client.key.pem")
 	serverCerFile := utils.GetEnv(serverCerPem, "server.cer.pem")
 	tlsConfig, _ := NewTLSConfig(clientCerFile, clientKeyFile, serverCerFile)
+	tlsConfig.InsecureSkipVerify = true
 
 	w := &kafka.Writer{
 		Addr:                   kafka.TCP(kafkaBroker),
