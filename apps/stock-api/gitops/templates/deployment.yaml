@@ -20,36 +20,22 @@ spec:
     spec:
       serviceAccountName: {{ .Values.service.name }}
       volumes:
-        - name: clientcer
-          secret: 
-            secretName: "kafka-connection"
-            items:
-            - key: client.cer.pem
-              path: client.cer.pem
-        - name: clientkey
+        - name: kafka
           secret: 
             secretName: "kafka-connection"
             items:
             - key: client.key.pem
               path: client.key.pem
-        - name: servercer
-          secret: 
-            secretName: "kafka-connection"
-            items:
+            - key: client.cer.pem
+              path: client.cer.pem
             - key: server.cer.pem
               path: server.cer.pem
       containers:
         - name: {{ .Values.service.name }}
           image: {{ .Values.service.image }}:{{ .Values.service.version }}
           volumeMounts:
-            - name: clientcer
-              mountPath: "client.cer.pem"
-              readOnly: true
-            - name: clientkey
-              mountPath: "client.key.pem"
-              readOnly: true
-            - name: servercer
-              mountPath: "server.cer.pem"
+            - name: kafka
+              mountPath: "/"
               readOnly: true
           env:
           {{- range .Values.config.env }}
