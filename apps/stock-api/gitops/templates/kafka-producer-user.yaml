@@ -1,0 +1,19 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: kafka-producer-stock-topic
+  labels:
+    strimzi.io/cluster: {{ .Values.kafka.name }}
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: {{ .Values.kafka.topic.stock.name }}
+          patternType: literal
+        operations:
+          - Write
+        host: "*"
