@@ -1,8 +1,8 @@
 service:
-  version: 0.1.1
+  version: 0.2
 deployment:
   replicas: 1
-  port: 8081
+  port: 8080
 config:
   env:
     - name: KAFKA_BROKER
