@@ -7,3 +7,10 @@ config:
   env:
     - name: KAFKA_BROKER
       value: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-wffvj.wffvj.sandbox1320.opentlc.com:443
+    - name: CLIENT_CER_PEM_FILE
+      value: "/certs/client.cer.pem"
+    - name: CLIENT_KEY_PEM_FILE
+      value: "/certs/client.key.pem"
+    - name: SERVER_CER_PEM_FILE
+      value: "/certs/server.cer.pem"
+    
