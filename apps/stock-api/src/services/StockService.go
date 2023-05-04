@@ -2,23 +2,23 @@ package services
 
 import (
 	"context"
-	"crypto"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"stock-api/domain/dto"
 	"stock-api/utils"
 
 	"github.com/segmentio/kafka-go"
-	"software.sslmate.com/src/go-pkcs12"
 )
 
 const (
-	kafkaBroker = "KAFKA_BROKER"
-	kafkaTopic  = "KAFKA_STOCK_TOPIC"
+	kafkaBroker  = "KAFKA_BROKER"
+	kafkaTopic   = "KAFKA_STOCK_TOPIC"
+	clientCerPem = "CLIENT_CER_PEM_FILE"
+	clientKeyPem = "CLIENT_KEY_PEM_FILE"
+	serverCerPem = "SERVER_CER_PEM_FILE"
 )
 
 type StockService struct {
@@ -28,10 +28,11 @@ type StockService struct {
 func NewStockService() *StockService {
 	kafkaBroker := utils.GetEnv(kafkaBroker, "localhost:9092")
 	stockTopic := utils.GetEnv(kafkaTopic, "stock")
-	tlsConfig, err := tlsCfg("ca.p12", "VFJWZTUwelVBR0x6", "user.p12", keyStorePassword)
-	if err != nil {
-		log.Fatal(err)
-	}
+	clientCerFile := utils.GetEnv(clientCerPem, "client.cer.pem")
+	clientKeyFile := utils.GetEnv(clientKeyPem, "client.key.pem")
+	serverCerFile := utils.GetEnv(serverCerPem, "server.cer.pem")
+	tlsConfig, _ := NewTLSConfig(clientCerFile, clientKeyFile, serverCerFile)
+
 	w := &kafka.Writer{
 		Addr:                   kafka.TCP(kafkaBroker),
 		Topic:                  stockTopic,
@@ -45,54 +46,33 @@ func NewStockService() *StockService {
 	return &StockService{w: w}
 }
 
-func tlsCfg(trustStoreFile string, trustStorePassword string, keyStoreFile string, keyStorePassword string) (*tls.Config, error) {
-	trustStore, err := ioutil.ReadFile(trustStoreFile)
+func NewTLSConfig(clientCertFile, clientKeyFile, caCertFile string) (*tls.Config, error) {
+	tlsConfig := tls.Config{}
+
+	// Load client cert
+	cert, err := tls.LoadX509KeyPair(clientCertFile, clientKeyFile)
 	if err != nil {
-		return nil, fmt.Errorf("49: %w", err)
+		return &tlsConfig, err
 	}
+	tlsConfig.Certificates = []tls.Certificate{cert}
 
-	trustStoreCerts, err := pkcs12.DecodeTrustStore(trustStore, trustStorePassword)
+	// Load CA cert
+	caCert, err := ioutil.ReadFile(caCertFile)
 	if err != nil {
-		return nil, fmt.Errorf("54: %w", err)
+		return &tlsConfig, err
 	}
+	caCertPool := x509.NewCertPool()
+	caCertPool.AppendCertsFromPEM(caCert)
+	tlsConfig.RootCAs = caCertPool
 
-	certPool, err := x509.SystemCertPool()
-	if err != nil {
-		return nil, fmt.Errorf("59: %w", err)
-	}
-
-	for _, cert := range trustStoreCerts {
-		certPool.AddCert(cert)
-	}
-
-	keyStore, err := ioutil.ReadFile(keyStoreFile)
-	if err != nil {
-		return nil, fmt.Errorf("68: %w", err)
-	}
-
-	keyStoreKey, keyStoreCert, err := pkcs12.Decode(keyStore, keyStorePassword)
-	if err != nil {
-		return nil, fmt.Errorf("72: %w", err)
-	}
-
-	clientCert := tls.Certificate{
-		Certificate: [][]byte{keyStoreCert.Raw},
-		PrivateKey:  keyStoreKey.(crypto.PrivateKey),
-		Leaf:        keyStoreCert,
-	}
-
-	return &tls.Config{
-		InsecureSkipVerify: false,
-		MaxVersion:         tls.VersionTLS12,
-		Certificates:       []tls.Certificate{clientCert},
-		RootCAs:            certPool,
-	}, nil
+	tlsConfig.BuildNameToCertificate()
+	return &tlsConfig, err
 }
 
 func (service *StockService) CreateStock(stock dto.Stock) error {
 	msg, _ := json.Marshal((stock))
 	message := kafka.Message{Value: msg}
-	err := service.w.WriteMessages(context.TODO(), message)
+	err := service.w.WriteMessages(context.Background(), message)
 	if err != nil {
 		log.Printf("%v", err)
 		return err

@@ -3,8 +3,8 @@
     "artifactName": "stock-api",
     "version": {
       "major": 0,
-      "minor": 1,
-      "patch": 1,
+      "minor": 2,
+      "patch": 0,
       "rc": 0,
       "snapshot": false
     }
