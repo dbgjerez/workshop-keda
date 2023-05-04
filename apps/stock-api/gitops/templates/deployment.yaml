@@ -35,7 +35,7 @@ spec:
           image: {{ .Values.service.image }}:{{ .Values.service.version }}
           volumeMounts:
             - name: kafka
-              mountPath: "/"
+              mountPath: "/certs"
               readOnly: true
           env:
           {{- range .Values.config.env }}
