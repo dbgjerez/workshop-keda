@@ -8,3 +8,7 @@ config:
       value: DEBUG
     - name: QUARKUS_LOG_CONSOLE_LEVEL
       value: DEBUG
+    - name: KAFKA_SSL_TRUSTORE_TYPE
+      value: PKCS12
+    - name: KAFKA_SSL_KEYSTORE_TYPE
+      value: PKCS12
