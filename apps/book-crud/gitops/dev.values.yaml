@@ -16,3 +16,5 @@ config:
       value: SSL
     - name: SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
       value: ""
+    - name: CONSUMER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
+      value: ""
