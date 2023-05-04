@@ -7,8 +7,8 @@ deployment:
   replicas: 1
   port: 8080
   health:
-    liveness: /api/v1/health
-    readiness: /api/v1/health
+    liveness: /q/health/live
+    readiness: /q/health/ready
   resources: 
     limits:
       cpu: 500m

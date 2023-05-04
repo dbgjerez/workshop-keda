@@ -27,7 +27,7 @@ spec:
             - key: ca.p12
               path: ca.p12
             - key: user.p12
-              path: user-certificate.p12
+              path: user.p12
       containers:
         - name: {{ .Values.service.name }}
           image: {{ .Values.service.image }}:{{ .Values.service.version }}
@@ -48,9 +48,9 @@ spec:
             - name: mp.messaging.incoming.books-new.group.id
               value: cg-{{ .Values.service.name }}
             - name: KAFKA_SSL_KEYSTORE_LOCATION
-              value: /certs/user-certificate.p12
+              value: /certs/user.p12
             - name: KAFKA_SSL_TRUSTSTORE_LOCATION
-              value: /certs/kafka-certificate.p12
+              value: /certs/ca.p12
             - name: KAFKA_SSL_KEYSTORE_PASSWORD
               valueFrom:
                 secretKeyRef:
