@@ -6,4 +6,4 @@ deployment:
 config:
   env:
     - name: KAFKA_BROKER
-      value: kafka-kafka-brokers.kafka.svc.cluster.local:9093
+      value: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-wffvj.wffvj.sandbox1320.opentlc.com
