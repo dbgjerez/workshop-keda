@@ -43,13 +43,13 @@ spec:
           image: {{ .Values.service.image }}:{{ .Values.service.version }}
           volumeMounts:
             - name: clientcer
-              mountPath: "/"
+              mountPath: "client.cer.pem"
               readOnly: true
             - name: clientkey
-              mountPath: "/"
+              mountPath: "client.key.pem"
               readOnly: true
             - name: servercer
-              mountPath: "/"
+              mountPath: "server.cer.pem"
               readOnly: true
           env:
           {{- range .Values.config.env }}
