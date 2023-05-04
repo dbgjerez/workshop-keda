@@ -23,9 +23,11 @@ public class StockConsumer {
     @Incoming("stock")
     @Transactional
     public void update(final Stock stock) {
-        LOGGER.info(String.format("Received %s", stock));
-        if (stock.getType().equals("book"))
-            bookService.saveOrUpdate(map(stock));
+        if (stock != null) {
+            LOGGER.info(String.format("Received %s", stock));
+            if (stock.getType().equals("book"))
+                bookService.saveOrUpdate(map(stock));
+        }
     }
 
     public Book map(final Stock s) {
