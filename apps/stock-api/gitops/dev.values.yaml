@@ -6,7 +6,7 @@ deployment:
 config:
   env:
     - name: KAFKA_BROKER
-      value: kafka-kafka-brokers.kafka.svc.cluster.local:9093
+      value: kafka-kafka-bootstrap.kafka.svc.cluster.local:9093
     - name: CLIENT_CER_PEM_FILE
       value: "/certs/client.cer.pem"
     - name: CLIENT_KEY_PEM_FILE
