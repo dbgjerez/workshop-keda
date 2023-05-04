@@ -18,4 +18,3 @@ config:
       value: ""
     - name: CONSUMER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
       value: ""
-    - name: mp.messaging.incoming.prices.value.deserializer=org.apache.kafka.common.serialization.DoubleDeserializer
