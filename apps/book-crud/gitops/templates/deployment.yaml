@@ -45,7 +45,7 @@ spec:
           {{- end }}
             - name: quarkus.vertx.max-event-loop-execute-time
               value: "10000000000"
-            - name: mp.messaging.incoming.stock-new.lag
+            - name: mp.messaging.incoming.stock.lag
               value: "1000"
             - name: mp.messaging.incoming.stock.topic
               value: {{ .Values.kafka.topic.stock.name }}
