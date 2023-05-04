@@ -4,7 +4,7 @@ config:
   env:
     - name: KAFKA_BOOTSTRAP_SERVERS
       value: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9094
-    - name: quarkus.log.level
+    - name: QUARKUS_LOG_LEVEL
       value: DEBUG
-    - name: quarkus.log.console.level
+    - name: QUARKUS_LOG_CONSOLE_LEVEL
       value: DEBUG
