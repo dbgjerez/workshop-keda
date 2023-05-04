@@ -5,13 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table
-@NoArgsConstructor
 public class Book {
 
     @Id
@@ -19,5 +19,9 @@ public class Book {
     private Long idBook;
     private String title;
     private Integer stock = 0;
+
+    @JsonCreator
+    public Book() {
+    }
     
 }
