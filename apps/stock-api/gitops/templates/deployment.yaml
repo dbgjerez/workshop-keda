@@ -45,6 +45,12 @@ spec:
               value: {{ $envItem.value | quote }}
           {{- end }}
           {{- end }}
+            - name: CLIENT_CER_PEM_FILE
+              value: "/certs/client.cer.pem"
+            - name: CLIENT_KEY_PEM_FILE
+              value: "/certs/client.key.pem"
+            - name: SERVER_CER_PEM_FILE
+              value: "/certs/server.cer.pem"
           ports:
             - name: http
               containerPort: {{ .Values.deployment.port }}

@@ -7,10 +7,4 @@ config:
   env:
     - name: KAFKA_BROKER
       value: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9094
-    - name: CLIENT_CER_PEM_FILE
-      value: "/certs/client.cer.pem"
-    - name: CLIENT_KEY_PEM_FILE
-      value: "/certs/client.key.pem"
-    - name: SERVER_CER_PEM_FILE
-      value: "/certs/server.cer.pem"
     
