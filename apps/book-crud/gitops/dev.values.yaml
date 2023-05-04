@@ -12,3 +12,5 @@ config:
       value: PKCS12
     - name: KAFKA_SSL_KEYSTORE_TYPE
       value: PKCS12
+    - name: KAFKA_SECURITY_PROTOCOL
+      value: TLS
