@@ -1,5 +1,5 @@
 oc get secret -n kafka kafka-cluster-ca-cert -o json | jq -r '.data["ca.p12"]' | base64 -d > ca.p12
-oc get secret -n kafka kafka-consumer-book-crud -o json | jq -r '.data["user.p12"]' | base64 -d > user.p12
+oc get secret -n kafka kafka-consumer-report-job -o json | jq -r '.data["user.p12"]' | base64 -d > user.p12
 
 oc create secret generic -n dev-backend kafka-connection-report-job \
  --from-file=ca.p12=ca.p12 \

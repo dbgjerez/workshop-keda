@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
-import io.dborrego.domain.dto.Stock;
+import io.dborrego.domain.Stock;
 
 @ApplicationScoped
 public class StockConsumer {
