@@ -3,15 +3,8 @@ package io.dborrego.domain.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import lombok.Data;
-
-@Data
 @Entity
-@Table
 public class Book {
 
     @Id
@@ -20,8 +13,31 @@ public class Book {
     private String title;
     private Integer stock = 0;
 
-    @JsonCreator
     public Book() {
     }
-    
+
+    public Long getIdBook() {
+        return this.idBook;
+    }
+
+    public void setIdBook(Long idBook) {
+        this.idBook = idBook;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getStock() {
+        return this.stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
 }
