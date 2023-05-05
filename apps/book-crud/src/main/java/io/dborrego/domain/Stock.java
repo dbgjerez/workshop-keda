@@ -1,4 +1,4 @@
-package io.dborrego.domain.dto;
+package io.dborrego.domain;
 
 public class Stock {
 

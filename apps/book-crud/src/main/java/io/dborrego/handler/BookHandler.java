@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-import io.dborrego.domain.model.Book;
+import io.dborrego.domain.Book;
 import io.dborrego.service.BookService;
 
 @Path("/book")

@@ -6,8 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import io.dborrego.domain.model.Book;
-import io.dborrego.domain.model.BookRepository;
+import io.dborrego.domain.Book;
+import io.dborrego.domain.BookRepository;
 
 @ApplicationScoped
 public class BookService {

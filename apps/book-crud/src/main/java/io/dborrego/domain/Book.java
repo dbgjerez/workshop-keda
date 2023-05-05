@@ -1,4 +1,4 @@
-package io.dborrego.domain.model;
+package io.dborrego.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

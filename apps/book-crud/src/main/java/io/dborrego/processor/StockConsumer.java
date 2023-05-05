@@ -8,8 +8,8 @@ import javax.transaction.Transactional;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
-import io.dborrego.domain.dto.Stock;
-import io.dborrego.domain.model.Book;
+import io.dborrego.domain.Book;
+import io.dborrego.domain.Stock;
 import io.dborrego.service.BookService;
 
 @ApplicationScoped
