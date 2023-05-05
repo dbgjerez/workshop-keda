@@ -47,8 +47,6 @@ spec:
               value: "10000000000"
             - name: mp.messaging.incoming.stock.lag
               value: "1000"
-            - name: mp.messaging.incoming.stock.value.deserializer
-              value: io.vertx.kafka.client.serialization.JsonObjectDeserializer
             - name: mp.messaging.incoming.stock.topic
               value: {{ .Values.kafka.topic.stock.name }}
             - name: mp.messaging.incoming.stock.group.id
