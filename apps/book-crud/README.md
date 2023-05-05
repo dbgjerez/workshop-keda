@@ -10,6 +10,8 @@ mvn quarkus:dev
 
 ## Native compilation
 
+> Warning: https://github.com/dbgjerez/workshop-keda/issues/3
+
 ### Creating a native executable
 
 You can create a native executable using: 
