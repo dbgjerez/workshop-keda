@@ -1,7 +1,5 @@
 package io.dborrego.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 public class Stock {
 
     private String type;
@@ -9,8 +7,14 @@ public class Stock {
     private String title;
     private Integer quantity;
 
-    @JsonCreator
     public Stock() {
+    }
+
+    public Stock(String type, Long id, String title, Integer quantity) {
+        this.type = type;
+        this.id = id;
+        this.title = title;
+        this.quantity = quantity;
     }
 
     public String getType() {
@@ -44,5 +48,5 @@ public class Stock {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-    
+
 }
