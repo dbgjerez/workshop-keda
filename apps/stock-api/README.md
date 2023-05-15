@@ -39,7 +39,7 @@ go run main.go
 Finally, we can call the application API:
 
 ```bash
-curl -X POST --data '{"type":"book","quantity":15}' localhost:8080/api/v1/stock
+curl -X POST --data '{"type":"book","quantity":15, "price": 5.60, "id": 1}' localhost:8080/api/v1/stock
 ```
 
 # Lifecycle
