@@ -32,7 +32,7 @@ public class StockConsumer {
 
     public Book map(final Stock s) {
         final Book b = new Book();
-        b.setIdBook(s.getId());
+        b.setIdBook(Long.valueOf(s.getId()));
         b.setTitle(s.getTitle());
         b.setStock(s.getQuantity());
         return b;

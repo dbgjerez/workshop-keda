@@ -3,18 +3,29 @@ package io.dborrego.domain;
 public class Stock {
 
     private String type;
-    private Long id;
+    private String id;
     private String title;
     private Integer quantity;
+    private Float price;
 
     public Stock() {
     }
 
-    public Stock(String type, Long id, String title, Integer quantity) {
+
+    public Stock(String type, String id, String title, Integer quantity, Float price) {
         this.type = type;
         this.id = id;
         this.title = title;
         this.quantity = quantity;
+        this.price = price;
+    }
+
+    public Float getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public String getType() {
@@ -25,11 +36,11 @@ public class Stock {
         this.type = type;
     }
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
