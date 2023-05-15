@@ -9,3 +9,9 @@ oc create secret generic -n dev-api kafka-connection \
  --from-file=server.cer.pem=server.cer.pem \
  --from-file=client.cer.pem=client.cer.pem \
  --from-file=client.key.pem=client.key.pem
+
+rm -f server.cer.pem
+rm -f client.cer.pem
+rm -f client.key.pem
+rm -f ca.p12
+rm -f user.p12
