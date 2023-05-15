@@ -1,5 +1,21 @@
 # book-crud
 
+## Local development
+
+### MariaDB
+
+```bash
+podman run \
+    -d  \
+    --name mariadb  \
+    --env MARIADB_USER=book \
+    --env MARIADB_PASSWORD=book123 \
+    --env MARIADB_ROOT_PASSWORD=book123 \
+    --env MARIADB_DATABASE=book \
+    -p 3306:3306 \
+    mariadb:latest
+```
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
