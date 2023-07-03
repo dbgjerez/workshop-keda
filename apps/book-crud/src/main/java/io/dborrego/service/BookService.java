@@ -1,13 +1,14 @@
 package io.dborrego.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import io.dborrego.domain.model.Book;
-import io.dborrego.domain.model.BookRepository;
+import io.dborrego.domain.Book;
+import io.dborrego.domain.BookRepository;
 
 @ApplicationScoped
 public class BookService {
@@ -25,11 +26,17 @@ public class BookService {
 
     @Transactional
     public Book saveOrUpdate(final Book book) {
-        final Book b = bookRepository.findByIdOptional(book.getIdBook()).orElse(new Book());
+        final Book b = Optional.ofNullable(book).map(Book::getIdBook).map(id -> bookRepository.findById(id))
+                .orElse(new Book());
         b.setTitle(book.getTitle());
         b.setStock(book.getStock() + b.getStock());
         bookRepository.persist(b);
         return b;
+    }
+
+    @Transactional
+    public Boolean deleteById(final Long id) {
+        return Optional.ofNullable(id).map(idBook -> bookRepository.deleteById(idBook)).orElse(false);
     }
 
 }

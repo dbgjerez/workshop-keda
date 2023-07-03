@@ -1,0 +1,10 @@
+service:
+  version: 0.3.1
+deployment:
+  replicas: 1
+  port: 8080
+config:
+  env:
+    - name: KAFKA_BROKER
+      value: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9094
+    
