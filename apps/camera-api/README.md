@@ -1,5 +1,12 @@
-
 # Local testing
+
+## Insert new reading
+
+```bash
+curl -X POST \
+    --data '{"plate":"0000GGG", "type": "car", "date": 1688396251}'  \
+    http://localhost:8080/api/v1/camera/read
+```
 
 ## Local Kafka
 
