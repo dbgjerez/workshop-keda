@@ -1,0 +1,7 @@
+/home/b0rr3g0/proyectos/git/workshop-keda/apps/book-crud/src/main/java/io/dborrego/domain/Stock.java
+/home/b0rr3g0/proyectos/git/workshop-keda/apps/book-crud/src/main/java/io/dborrego/handler/BookHandler.java
+/home/b0rr3g0/proyectos/git/workshop-keda/apps/book-crud/src/main/java/io/dborrego/service/BookService.java
+/home/b0rr3g0/proyectos/git/workshop-keda/apps/book-crud/src/main/java/io/dborrego/domain/Book.java
+/home/b0rr3g0/proyectos/git/workshop-keda/apps/book-crud/src/main/java/io/dborrego/processor/StockConsumer.java
+/home/b0rr3g0/proyectos/git/workshop-keda/apps/book-crud/src/main/java/io/dborrego/domain/BookRepository.java
+/home/b0rr3g0/proyectos/git/workshop-keda/apps/book-crud/src/main/java/io/dborrego/MyReactiveMessagingApplication.java
