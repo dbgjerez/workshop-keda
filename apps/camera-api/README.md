@@ -12,6 +12,11 @@
 | SERVER_CER_PEM_FILE | none | Kafka server certificate |
 
 # API
+| Endopint | Http verb | Description |
+| ------ | ------ | ------ |
+| /api/v1/health | GET | Heathcheck |
+| /api/v1/info | GET | Application information |
+| /api/v1/camera/read | POST | Create a new reading |
 
 # Local testing
 
