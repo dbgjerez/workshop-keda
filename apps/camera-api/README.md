@@ -1,3 +1,10 @@
+# Configuration
+| Variable | Default value | Description |
+| ------ | ------ | ------ |
+| GIN_MODE | debug | Gin gonic mode. (release for production mode) |
+
+# API
+
 # Local testing
 
 ## Insert new reading
