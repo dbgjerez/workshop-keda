@@ -1,10 +1,10 @@
 package interfaces
 
 import (
-	"camera-api/domain/dto"
-	"camera-api/utils"
 	"net/http"
 
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/domain/dto"
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/utils"
 	"github.com/gin-gonic/gin"
 )
 

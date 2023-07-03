@@ -1,9 +1,8 @@
 package main
 
 import (
-	"camera-api/interfaces"
-	"camera-api/services"
-
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/interfaces"
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/services"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -27,8 +26,8 @@ func main() {
 		s := interfaces.NewInfoHandler()
 		v1.GET("/info", s.InfoGetHandler())
 
-		stockHandler := interfaces.NewCameraReadHandler(sService)
-		v1.POST("/camera/read", stockHandler.CreateCameraRead())
+		cameraHandler := interfaces.NewCameraReadHandler(sService)
+		v1.POST("/camera/read", cameraHandler.CreateCameraRead())
 	}
 
 	router.Run(SERVER_PORT)

@@ -1,9 +1,9 @@
 package interfaces
 
 import (
-	"camera-api/domain/dto"
 	"net/http"
 
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/domain/dto"
 	"github.com/gin-gonic/gin"
 )
 

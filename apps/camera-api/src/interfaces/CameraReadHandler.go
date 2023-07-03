@@ -1,10 +1,11 @@
 package interfaces
 
 import (
-	"camera-api/domain/dto"
-	"camera-api/services"
+	"log"
 	"net/http"
 
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/domain/dto"
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,6 +32,7 @@ func (handler *CameraReadHandler) CreateCameraRead() func(c *gin.Context) {
 			c.Abort()
 			return
 		}
+		log.Printf("Received new read: %v", read)
 		err := handler.sService.CreateCameraRead(read)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{ParamErrorMsg: err.Error()})

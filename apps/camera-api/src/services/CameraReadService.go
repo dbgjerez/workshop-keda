@@ -1,8 +1,6 @@
 package services
 
 import (
-	"camera-api/domain/dto"
-	"camera-api/utils"
 	"context"
 	"crypto/tls"
 	"crypto/x509"
@@ -10,12 +8,14 @@ import (
 	"io/ioutil"
 	"log"
 
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/domain/dto"
+	"github.com/dbgjerez/workshop-keda/apps/camera-api/src/utils"
 	"github.com/segmentio/kafka-go"
 )
 
 const (
 	kafkaBroker  = "KAFKA_BROKER"
-	kafkaTopic   = "KAFKA_STOCK_TOPIC"
+	kafkaTopic   = "KAFKA_CAMERA_NEW_PICTURE_TOPIC"
 	clientCerPem = "CLIENT_CER_PEM_FILE"
 	clientKeyPem = "CLIENT_KEY_PEM_FILE"
 	serverCerPem = "SERVER_CER_PEM_FILE"

@@ -1,4 +1,4 @@
-module camera-api
+module github.com/dbgjerez/workshop-keda/apps/camera-api/src
 
 go 1.19
 
