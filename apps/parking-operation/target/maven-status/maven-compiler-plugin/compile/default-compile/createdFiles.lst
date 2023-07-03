@@ -1,0 +1,8 @@
+io/dborrego/processor/StockConsumer.class
+io/dborrego/domain/Stock.class
+io/dborrego/domain/Book.class
+io/dborrego/handler/BookHandler.class
+META-INF/panache-archive.marker
+io/dborrego/MyReactiveMessagingApplication.class
+io/dborrego/domain/BookRepository.class
+io/dborrego/service/BookService.class
