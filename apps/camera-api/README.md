@@ -1,5 +1,27 @@
+# Configuration
+| Variable | Default value | Description |
+| ------ | ------ | ------ |
+| GIN_MODE | debug | Gin gonic mode. (release for production mode) |
+| SERVICE_VERSION | none | Service version, should be setted in compile time |
+| SERVICE_NAME | camera-api | Service name |
+| SERVICE_BUILD_TIME | none | Date when the service version was built |
+| KAFKA_BROKER | none | Kafka url |
+| KAFKA_CAMERA_NEW_PICTURE_TOPIC | none | Kafka topic name |
+| CLIENT_CER_PEM_FILE | none | Kafka client certificate secret |
+| CLIENT_KEY_PEM_FILE | none | Kafka client key secret |
+| SERVER_CER_PEM_FILE | none | Kafka server certificate |
+
+# API
 
 # Local testing
+
+## Insert new reading
+
+```bash
+curl -X POST \
+    --data '{"plate":"0000GGG", "type": "car", "date": 1688396251}'  \
+    http://localhost:8080/api/v1/camera/read
+```
 
 ## Local Kafka
 
