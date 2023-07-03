@@ -1,6 +1,6 @@
 service:
-  name: stock-api
-  image: quay.io/dborrego/stock-api
+  name: camera-api
+  image: quay.io/dborrego/keda-camera-api
   version: 0.1
 
 deployment:
