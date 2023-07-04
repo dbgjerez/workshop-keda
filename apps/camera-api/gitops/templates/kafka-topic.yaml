@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: {{ .Values.kafka.topic.stock.name }}
+  name: {{ .Values.kafka.topic.name }}
   namespace: kafka
   labels:
     strimzi.io/cluster: {{ .Values.kafka.name }}
