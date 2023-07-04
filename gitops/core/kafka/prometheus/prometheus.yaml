@@ -21,7 +21,6 @@ spec:
     matchLabels:
       app: strimzi
   enableAdminAPI: false
-  serviceMonitorSelector: {}
   additionalScrapeConfigs:
     name: additional-scrape-configs
     key: prometheus-additional.yaml
