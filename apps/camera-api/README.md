@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/dbgjerez/workshop-keda/apps/camera-api/src)](https://goreportcard.com/report/github.com/dbgjerez/workshop-keda/apps/camera-api/src)
+
 # Configuration
 | Variable | Default value | Description |
 | ------ | ------ | ------ |

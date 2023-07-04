@@ -1,0 +1,1 @@
+This folder contains the applications and instances of some services. In this example, each service has its own gitops folder, where exists a Chart to deploy the application. 
