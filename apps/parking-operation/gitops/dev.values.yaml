@@ -18,3 +18,5 @@ config:
       value: ""
     - name: CONSUMER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
       value: ""
+    - name: quarkus.jackson.write-dates-as-timestamps
+      value: "true"
