@@ -11,5 +11,5 @@ spec:
     retention.ms: 3600000
     # 1gb
     segment.bytes: 1073741824
-  partitions: 1
+  partitions: 3
   replicas: 2
