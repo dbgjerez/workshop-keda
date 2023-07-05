@@ -6,9 +6,10 @@ openssl pkcs12 -in user.p12 -password pass:$(oc get secret -n kafka kafka-consum
 openssl pkcs12 -in user.p12 -password pass:$(oc get secret -n kafka kafka-consumer-keda -o json | jq -r '.data["user.password"]' | base64 -d) -nodes -nocerts -out client.key.pem
 
 oc create secret generic -n dev-backend keda-kafka-connection \
- --from-file=server.cer.pem=server.cer.pem \
- --from-file=client.cer.pem=client.cer.pem \
- --from-file=client.key.pem=client.key.pem
+    --from-file=server.cer.pem=server.cer.pem \
+    --from-file=client.cer.pem=client.cer.pem \
+    --from-file=client.key.pem=client.key.pem \
+    --from-literal=tls=enable
 
 rm -f server.cer.pem
 rm -f client.cer.pem
