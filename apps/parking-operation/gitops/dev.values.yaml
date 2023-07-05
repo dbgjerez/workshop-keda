@@ -20,3 +20,5 @@ config:
       value: ""
     - name: quarkus.jackson.write-dates-as-timestamps
       value: "true"
+    - name: QUARKUS_JACKSON_TIMEZONE
+      value: UTC
