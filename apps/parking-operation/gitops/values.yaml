@@ -20,8 +20,8 @@ deployment:
 kafka:
   name: kafka
   topic:
-    stock:
-      name: stock
+    camera:
+      name: camera-new-picture
 
 config:
   env:

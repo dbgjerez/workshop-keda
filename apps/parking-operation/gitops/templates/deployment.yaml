@@ -45,11 +45,11 @@ spec:
           {{- end }}
             - name: quarkus.vertx.max-event-loop-execute-time
               value: "10000000000"
-            - name: mp.messaging.incoming.stock.lag
+            - name: mp.messaging.incoming.camera.lag
               value: "1000"
-            - name: mp.messaging.incoming.stock.topic
-              value: {{ .Values.kafka.topic.stock.name }}
-            - name: mp.messaging.incoming.stock.group.id
+            - name: mp.messaging.incoming.camera.topic
+              value: {{ .Values.kafka.topic.camera.name }}
+            - name: mp.messaging.incoming.camera.group.id
               value: cg-{{ .Values.service.name }}
             - name: KAFKA_SSL_KEYSTORE_LOCATION
               value: /certs/user.p12
