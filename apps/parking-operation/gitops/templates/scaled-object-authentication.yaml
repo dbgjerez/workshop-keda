@@ -10,7 +10,7 @@ spec:
     key: ca.p12
   - parameter: key
     name: keda-kafka-connection
-    cert: user.p12
+    key: user.p12
   - parameter: keyPassword
     name: keda-kafka-connection
     key: user.password
