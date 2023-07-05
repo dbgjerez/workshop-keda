@@ -1,7 +1,9 @@
 package dto
 
+import "time"
+
 type CameraRead struct {
-	Plate string `json:"plate"`
-	Type  string `json:"type"`
-	Date  int32  `json:"date"`
+	Plate string    `json:"plate"`
+	Type  string    `json:"type"`
+	Date  time.Time `json:"date"`
 }
