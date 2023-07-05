@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   secretTargetRef:
-  - parameter: ca
+  - parameter: cert
     name: keda-kafka-connection
     key: ca.p12
   - parameter: key
