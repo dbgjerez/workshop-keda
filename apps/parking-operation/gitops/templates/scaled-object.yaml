@@ -14,7 +14,7 @@ spec:
   triggers:
   - type: kafka
     metadata:
-      bootstrapServers: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9092
+      bootstrapServers: kafka-kafka-bootstrap.kafka.svc.cluster.local:9092
       consumerGroup: cg-{{ .Values.service.name }}
       topic: {{ .Values.kafka.topic.camera.name }}
       # Optional
