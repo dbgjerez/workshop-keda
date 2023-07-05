@@ -1,6 +1,6 @@
 service:
-  name: book-crud
-  image: quay.io/dborrego/book-crud
+  name: parking-operation
+  image: quay.io/dborrego/keda-parking-operation
   version: 0.1
 
 deployment:

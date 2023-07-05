@@ -1,9 +1,9 @@
 service:
-  version: 0.2
+  version: 0.1
 config:
   env:
     - name: KAFKA_BOOTSTRAP_SERVERS
-      value: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-wffvj.wffvj.sandbox1320.opentlc.com:443
+      value: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-f9zjr.f9zjr.sandbox2590.opentlc.com:443
     - name: QUARKUS_LOG_LEVEL
       value: DEBUG
     - name: QUARKUS_LOG_CONSOLE_LEVEL
