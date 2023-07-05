@@ -19,6 +19,8 @@ deployment:
 
 kafka:
   name: kafka
+  bootstrap:
+    servers: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-f9zjr.f9zjr.sandbox2590.opentlc.com:443
   topic:
     camera:
       name: camera-new-picture

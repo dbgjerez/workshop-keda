@@ -53,6 +53,8 @@ spec:
               value: cg-{{ .Values.service.name }}
             - name: KAFKA_SSL_KEYSTORE_LOCATION
               value: /certs/user.p12
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: {{ .Values.kafka.bootstrap.servers }}
             - name: KAFKA_SSL_TRUSTSTORE_LOCATION
               value: /certs/ca.p12
             - name: KAFKA_SSL_KEYSTORE_PASSWORD
