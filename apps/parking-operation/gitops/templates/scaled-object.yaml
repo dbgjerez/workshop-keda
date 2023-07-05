@@ -2,7 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: {{ .Values.service.name }}
-  namespace: openshift-keda
+  namespace: {{ .Release.Namespace }}
   labels:
     name: {{ .Values.service.name | quote }}
     app: {{ .Values.service.name | quote }}

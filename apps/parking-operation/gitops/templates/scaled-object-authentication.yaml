@@ -2,7 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
   name: keda-trigger-auth-kafka-credential
-  namespace: openshift-keda
+  namespace: {{ .Release.Namespace }}
 spec:
   secretTargetRef:
   - parameter: ca
