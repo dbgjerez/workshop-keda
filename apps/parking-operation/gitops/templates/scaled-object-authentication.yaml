@@ -7,13 +7,13 @@ spec:
   secretTargetRef:
   - parameter: cert
     name: keda-kafka-connection
-    key: ca.p12
+    key: server.cer.pem
   - parameter: key
     name: keda-kafka-connection
-    key: user.p12
+    key: client.cer.pem
   - parameter: keyPassword
     name: keda-kafka-connection
-    key: user.password
+    key: client.key.pem
   - parameter: tls
     name: keda-kafka-connection
     key: tls
