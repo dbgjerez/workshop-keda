@@ -12,6 +12,3 @@ spec:
     repoURL: "https://github.com/dbgjerez/workshop-keda"
     targetRevision: 9-git-ops-structure
   project: default
-  syncPolicy:
-    automated:
-      prune: true
