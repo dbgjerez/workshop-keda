@@ -5,15 +5,12 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   secretTargetRef:
-  - parameter: cert
+  - parameter: sasl
     name: keda-kafka-connection
-    key: server.cer.pem
-  - parameter: key
+    key: sasl
+  - parameter: username
     name: keda-kafka-connection
-    key: client.cer.pem
-  - parameter: keyPassword
+    key: username
+  - parameter: password
     name: keda-kafka-connection
-    key: client.key.pem
-  - parameter: tls
-    name: keda-kafka-connection
-    key: tls
+    key: password
