@@ -18,31 +18,15 @@ spec:
       default.replication.factor: 1
       min.insync.replicas: 1
       inter.broker.protocol.version: "3.3"
-    listeners:
-      - name: plain
-        port: 9092
-        type: internal
-        tls: false
-      - name: tls
-        port: 9093
-        type: internal
-        tls: true
-        authentication:
-          type: tls
-      - name: routetls
-        port: 9094
-        type: route
-        tls: true
-        authentication:
-          type: tls
+    listeners: 
+      plain: {}
+      tls: {}
     metricsConfig:
       type: jmxPrometheusExporter
       valueFrom:
         configMapKeyRef:
           name: kafka-metrics
           key: kafka-metrics-config.yml 
-    authorization:
-      type: simple
     storage:
       type: ephemeral
   zookeeper:
