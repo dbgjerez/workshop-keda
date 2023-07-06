@@ -19,8 +19,16 @@ spec:
       min.insync.replicas: 1
       inter.broker.protocol.version: "3.3"
     listeners: 
-      plain: {}
-      tls: {}
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+        authentication:
+          type: tls
     metricsConfig:
       type: jmxPrometheusExporter
       valueFrom:
