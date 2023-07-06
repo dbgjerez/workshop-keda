@@ -6,6 +6,8 @@ metadata:
   labels:
     strimzi.io/cluster: {{ .Values.kafka.name }}
 spec:
+  authentication:
+    type: scram-sha-512
   authorization:
     type: simple
     acls:
