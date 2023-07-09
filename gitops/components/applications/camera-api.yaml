@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: camera-api
+  namespace: openshift-gitops
+spec:
+  generators:
+  - list:
+      elements:
+      - env: dev
+        namespace: dev-api
+  template:
+    metadata: 
+      name: '{{env}}-camera-api'
+      labels: 
+        env: '{{env}}'
+        type: app
+        lang: go
+    spec:
+      destination:
+        namespace: '{{namespace}}'
+        server: "https://kubernetes.default.svc"
+      source:
+        path: apps/camera-api/gitops
+        repoURL: "https://github.com/dbgjerez/workshop-keda"
+        targetRevision: 9-git-ops-structure
+        helm:
+          valueFiles:
+            - '{{env}}.values.yaml'
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
+        syncOptions:
+          - CreateNamespace=true

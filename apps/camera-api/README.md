@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/dbgjerez/workshop-keda/apps/camera-api/src)](https://goreportcard.com/report/github.com/dbgjerez/workshop-keda/apps/camera-api/src)
+
 # Configuration
 | Variable | Default value | Description |
 | ------ | ------ | ------ |
@@ -41,6 +43,13 @@ podman run \
     -e LOG_DIR=/tmp/logs \
     quay.io/strimzi/kafka:latest-kafka-2.8.1-amd64 \
     /bin/sh -c 'export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server.properties && bin/kafka-server-start.sh config/kraft/server.properties'
+```
+
+Create the topic:
+
+```bash
+podman exec -it kafka-zkless bash
+bin/kafka-topics.sh --create --replication-factor 2 --partitions 2 --topic camera-new-picture
 ```
 
 To see the topic data we need a consumer. You can use whatever you want, in my case, I'm using ```kcat```

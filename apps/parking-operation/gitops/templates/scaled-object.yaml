@@ -1,0 +1,24 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    name: {{ .Values.service.name | quote }}
+    app: {{ .Values.service.name | quote }}
+    version: {{ .Values.service.version | quote }}
+spec:
+  scaleTargetRef:
+    name: {{ .Values.service.name }}
+  pollingInterval: 30
+  triggers:
+  - type: kafka
+    metadata:
+      bootstrapServers: kafka-kafka-bootstrap.kafka.svc.cluster.local:9092
+      consumerGroup: cg-{{ .Values.service.name }}
+      topic: {{ .Values.kafka.topic.camera.name }}
+      # Optional
+      lagThreshold: "5"
+      offsetResetPolicy: latest
+    # authenticationRef:
+      # name: keda-trigger-auth-kafka-credential

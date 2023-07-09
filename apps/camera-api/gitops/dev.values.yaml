@@ -1,5 +1,5 @@
 service:
-  version: 0.1
+  version: 0.2
 deployment:
   replicas: 1
   port: 8080
@@ -7,4 +7,5 @@ config:
   env:
     - name: KAFKA_BROKER
       value: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9094
-    
+    - name: KAFKA_CAMERA_NEW_PICTURE_TOPIC
+      value: camera-new-picture

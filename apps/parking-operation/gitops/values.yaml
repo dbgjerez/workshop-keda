@@ -1,0 +1,29 @@
+service:
+  name: parking-operation
+  image: quay.io/dborrego/keda-parking-operation
+  version: 0.1
+
+deployment:
+  replicas: 1
+  port: 8080
+  health:
+    liveness: /q/health/live
+    readiness: /q/health/ready
+  resources: 
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+kafka:
+  name: kafka
+  bootstrap:
+    servers: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-f9zjr.f9zjr.sandbox2590.opentlc.com:443
+  topic:
+    camera:
+      name: camera-new-picture
+
+config:
+  env:
