@@ -4,3 +4,7 @@
 
 # 0.2 - 05/07/2023
 - Model changed to use dates in format ISO-8601
+
+# 0.3 - 07/07/2023
+- No TLS option
+
