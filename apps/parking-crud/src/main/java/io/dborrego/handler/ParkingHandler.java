@@ -14,39 +14,39 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.reactive.RestResponse;
 
-import io.dborrego.domain.Book;
-import io.dborrego.service.BookService;
+import io.dborrego.domain.Parking;
+import io.dborrego.service.ParkingService;
 
-@Path("/book")
-public class BookHandler {
+@Path("/parking")
+public class ParkingHandler {
 
     @Inject
-    BookService bookService;
+    ParkingService parkingService;
 
     @GET
-    public List<Book> list() {
-        return bookService.listAll();
+    public List<Parking> list() {
+        return parkingService.listAll();
     }
 
     @GET
     @Path("/{id}")
-    public Book get(Long id) {
-        return bookService.findById(id);
+    public Parking get(Long id) {
+        return parkingService.findById(id);
     }
 
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Book create(Book book) {
-        return bookService.saveOrUpdate(book);
+    public Parking create(Parking parking) {
+        return parkingService.saveOrUpdate(parking);
     }
 
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<Void> delete(Long id) {
-        if (bookService.deleteById(id))
+        if (parkingService.deleteById(id))
             return RestResponse.status(Response.Status.OK);
         else
             return RestResponse.status(Response.Status.NOT_FOUND);
