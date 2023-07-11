@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -35,11 +36,22 @@ public class ParkingHandler {
     }
 
     @POST
-    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Parking create(Parking parking) {
         return parkingService.saveOrUpdate(parking);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResponse<Void> update(Parking parking) {
+        try {
+            parkingService.saveOrUpdate(parking);
+        } catch (Exception e) {
+            return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR);
+        }
+        return RestResponse.status(Response.Status.OK);
     }
 
     @DELETE
