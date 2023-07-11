@@ -4,6 +4,8 @@ Keda is a Kubernetes autoscaling based on events
 
 # Start up
 
+
+
 Operator installation:
 
 ```bash

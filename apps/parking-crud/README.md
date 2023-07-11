@@ -53,5 +53,5 @@ You can then execute your native executable with: `./target/parking-crud-1.0.0-S
 ### Build a native container
 
 ```shell script
-podman build --no-cache -f src/main/docker/Dockerfile.native-micro -t quay.io/dborrego/parking-crud:0.1 .
+podman build --no-cache -f src/main/docker/Dockerfile.native-micro -t quay.io/dborrego/keda-parking-crud:0.1 .
 ```
