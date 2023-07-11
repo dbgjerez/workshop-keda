@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - camera-api.yaml
   - parking-operation.yaml
+  - parking-crud.yaml
