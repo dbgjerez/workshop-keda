@@ -18,6 +18,8 @@ deployment:
       memory: 16Mi
 
 kafka:
+  acl: 
+    active: false
   name: kafka
   topic:
     name: camera-new-picture
