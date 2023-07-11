@@ -18,6 +18,8 @@ deployment:
       memory: 16Mi
 
 kafka:
+  tls:
+    active: false
   acl: 
     active: false
   name: kafka

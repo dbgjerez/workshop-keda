@@ -14,5 +14,3 @@ spec:
     targetPort: {{ .Values.deployment.port }}
   selector:
     name: {{ .Values.service.name | quote }}
-status:
-  loadBalancer: {}
