@@ -9,7 +9,7 @@ Keda is a Kubernetes autoscaling based on events
 Operator installation:
 
 ```bash
-oc apply -f operator/openshift-gitops.yaml
+oc apply -f gitops/bootstrap/openshift-gitops.yaml
 ```
 
 Retrieve ArgoCD route: 
@@ -27,11 +27,11 @@ oc -n openshift-gitops get secret openshift-gitops-cluster -o json | jq -r '.dat
 ArgoCD needs some privileges to create specific resources. In this demo, we'll apply cluster-role to ArgoCD to avoid the fine-grain RBAC.
 
 ```bash
-oc apply -f argocd/cluster-role.yaml
+oc apply -f gitops/bootstrap/cluster-role.yaml
 ```
 
 Now, we apply the bootstrap application:
 
 ```bash
-oc apply -f argocd/bootstrap.yaml
+oc apply -f gitops/bootstrap/bootstrap.yaml
 ```
