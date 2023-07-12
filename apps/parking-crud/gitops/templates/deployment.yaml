@@ -55,4 +55,11 @@ spec:
             failureThreshold: 10
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
+          volumeMounts:
+          - name: mariadb-pv
+            mountPath: /var/lib/mysql
+        volumes:
+        - name: mariadb-pv
+          persistentVolumeClaim:
+            claimName: mariadb-{{ .Values.service.name }}
 ---
