@@ -30,7 +30,7 @@ spec:
               value: {{ $envItem.value | quote }}
           {{- end }}
           {{- end }}
-          - name: QUARKUS_DATASOURCE.JDBC.URL
+          - name: QUARKUS_DATASOURCE_JDBC_URL
             value: jdbc:mariadb://mariadb-{{ .Values.service.name }}/{{ .Values.mariadb.database }}
           - name: QUARKUS_DATASOURCE_USERNAME
             value: {{ .Values.mariadb.user }}
