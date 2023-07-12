@@ -34,6 +34,15 @@ spec:
               value: {{ $envItem.value | quote }}
           {{- end }}
           {{- end }}
+          - name: QUARKUS_DATASOURCE.JDBC.URL
+            value: jdbc:mariadb://mariadb-{{ .Values.service.name }}/{{ .Values.mariadb.database }}
+          - name: QUARKUS_DATASOURCE_USERNAME
+            value: {{ .Values.mariadb.user }}
+          - name: QUARKUS_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mariadb-{{ .Values.service.name }}
+                key: mariadb-root-password
           ports:
             - name: http
               containerPort: {{ .Values.deployment.port }}
