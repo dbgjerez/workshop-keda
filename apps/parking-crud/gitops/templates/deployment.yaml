@@ -58,8 +58,8 @@ spec:
           volumeMounts:
           - name: mariadb-pv
             mountPath: /var/lib/mysql
-        volumes:
-        - name: mariadb-pv
-          persistentVolumeClaim:
-            claimName: mariadb-{{ .Values.service.name }}
+      volumes:
+      - name: mariadb-pv
+        persistentVolumeClaim:
+          claimName: mariadb-{{ .Values.service.name }}
 ---
