@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mariadb-{{ .Values.service.name }}
 spec: # specification for deployment resource
-  replicas: 2 # how many replicas of pods we want to create
+  replicas: 1 
   selector:
     matchLabels:
       app: mariadb-{{ .Values.service.name }}
