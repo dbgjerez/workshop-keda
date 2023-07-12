@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     name: mariadb-{{ .Values.service.name }}
-    version: mariadb-{{ .Values.service.version }}
+    app: mariadb-{{ .Values.service.name }}
 spec:
   ports:
   - name: http
