@@ -22,10 +22,6 @@ spec:
       containers:
         - name: {{ .Values.service.name }}
           image: {{ .Values.service.image }}:{{ .Values.service.version }}
-          volumeMounts:
-            - name: kafka
-              mountPath: "/certs"
-              readOnly: true
           env:
           {{- range .Values.config.env }}
           {{- $envItem := . -}}
