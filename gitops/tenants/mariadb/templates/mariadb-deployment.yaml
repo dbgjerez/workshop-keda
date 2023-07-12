@@ -14,7 +14,6 @@ spec: # specification for deployment resource
         app: mariadb-{{ .Values.service.name }} # service will look for this label
         name: mariadb-{{ .Values.service.name }}
     spec: # specification for pods
-      serviceAccountName: {{ .Values.service.name }}
       containers: # we can have one or more containers
       - name: mariadb
         image: mariadb
