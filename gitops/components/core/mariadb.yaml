@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: mariadb
+  namespace: openshift-gitops
+spec:
+  generators:
+  - list:
+      elements:
+      - app: parking-crud
+        env: dev
+        namespace: dev-data
+      - app: billing-crud
+        env: dev
+        namespace: dev-data
+      - app: fares-crud
+        env: dev
+        namespace: dev-data
+  template:
+    metadata: 
+      name: '{{env}}-{{app}}'
+      labels: 
+        env: '{{env}}'
+        type: database
+    spec:
+      destination:
+        namespace: '{{namespace}}'
+        server: "https://kubernetes.default.svc"
+      source:
+        path: gitops/tenants/mariadb/
+        repoURL: "https://github.com/dbgjerez/workshop-keda"
+        targetRevision: 9-git-ops-structure
+        helm:
+          valueFiles:
+            - '{{app}}.{{env}}.values.yaml'
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
+        syncOptions:
+          - CreateNamespace=true

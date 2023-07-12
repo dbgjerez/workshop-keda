@@ -4,3 +4,4 @@ resources:
   - operators.yaml
   - kafka.yaml
   - kafka-cluster.yaml
+  - mariadb.yaml
