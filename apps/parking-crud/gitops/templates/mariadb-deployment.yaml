@@ -7,10 +7,12 @@ spec: # specification for deployment resource
   selector:
     matchLabels:
       app: mariadb-{{ .Values.service.name }}
+      name: mariadb-{{ .Values.service.name }}
   template: # blueprint for pods
     metadata:
       labels:
         app: mariadb-{{ .Values.service.name }} # service will look for this label
+        name: mariadb-{{ .Values.service.name }}
     spec: # specification for pods
       serviceAccountName: {{ .Values.service.name }}
       containers: # we can have one or more containers
