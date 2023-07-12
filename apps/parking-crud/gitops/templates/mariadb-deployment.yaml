@@ -33,3 +33,10 @@ spec: # specification for deployment resource
               key: mariadb-root-password
         - name: MARIADB_DATABASE
           value: {{ .Values.mariadb.database }}
+        volumeMounts:
+        - name: mariadb-pv
+          mountPath: /var/lib/mysql
+    volumes:
+    - name: mariadb-pv
+      persistentVolumeClaim:
+        claimName: mariadb-{{ .Values.service.name }}
