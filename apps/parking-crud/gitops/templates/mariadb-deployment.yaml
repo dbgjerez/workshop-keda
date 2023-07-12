@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-{{ .Values.service.name }}
+spec: # specification for deployment resource
+  replicas: 2 # how many replicas of pods we want to create
+  selector:
+    matchLabels:
+      app: mariadb-{{ .Values.service.name }}
+  template: # blueprint for pods
+    metadata:
+      labels:
+        app: mariadb-{{ .Values.service.name }} # service will look for this label
+    spec: # specification for pods
+      containers: # we can have one or more containers
+      - name: mariadb
+        image: mariadb
+        ports:
+        - containerPort: 3306 
+        env:
+        - name: MARIADB_USER
+          value: {{ .Values.mariadb.user }}
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-{{ .Values.service.name }}
+              key: mariadb-password
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-{{ .Values.service.name }}
+              key: mariadb-root-password
+        - name: MARIADB_DATABASE
+          value: {{ .Values.mariadb.database }}

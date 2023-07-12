@@ -17,11 +17,9 @@ deployment:
       cpu: 100m
       memory: 256Mi
 
-kafka:
-  name: kafka
-  topic:
-    stock:
-      name: stock
+mariadb:
+  database: parking
+  user: parking
 
 config:
   env:
