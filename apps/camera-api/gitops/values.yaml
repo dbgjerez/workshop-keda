@@ -18,10 +18,13 @@ deployment:
       memory: 16Mi
 
 kafka:
+  tls:
+    active: false
+  acl: 
+    active: false
   name: kafka
   topic:
-    stock:
-      name: stock
+    name: camera-new-picture
 
 config:
   env:

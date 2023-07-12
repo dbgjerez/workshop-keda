@@ -1,0 +1,5 @@
+service:
+  name: parking-crud
+mariadb:
+  database: parking
+  user: parking

@@ -19,7 +19,7 @@ spec:
           - Read
         host: "*"
       - resource:
-          name: {{ .Values.kafka.topic.stock.name }}
+          name: {{ .Values.kafka.topic.camera.name }}
           patternType: literal
           type: topic
         operations: 

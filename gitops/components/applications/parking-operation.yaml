@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: parking-operation
+  namespace: openshift-gitops
+spec:
+  generators:
+  - list:
+      elements:
+      - env: dev
+        namespace: dev-backend
+  template:
+    metadata: 
+      name: '{{env}}-parking-operation'
+      labels: 
+        env: '{{env}}'
+        type: app
+        lang: go
+    spec:
+      destination:
+        namespace: '{{namespace}}'
+        server: "https://kubernetes.default.svc"
+      source:
+        path: apps/parking-operation/gitops
+        repoURL: "https://github.com/dbgjerez/workshop-keda"
+        targetRevision: 9-git-ops-structure
+        helm:
+          valueFiles:
+            - '{{env}}.values.yaml'
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
+        syncOptions:
+          - CreateNamespace=true

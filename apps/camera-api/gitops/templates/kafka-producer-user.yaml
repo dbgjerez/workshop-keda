@@ -1,20 +1,24 @@
+{{- if .Values.kafka.acl.active }}
+
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
-  name: kafka-producer-stock-topic
+  name: kafka-producer-{{ .Values.service.name }}
   namespace: kafka
   labels:
     strimzi.io/cluster: {{ .Values.kafka.name }}
 spec:
   authentication:
-    type: tls
+    type: scram-sha-512
   authorization:
     type: simple
     acls:
       - resource:
           type: topic
-          name: {{ .Values.kafka.topic.stock.name }}
+          name: {{ .Values.kafka.topic.name }}
           patternType: literal
         operations:
           - Write
         host: "*"
+
+{{ end }}

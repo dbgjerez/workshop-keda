@@ -2,6 +2,9 @@ package io.dborrego.domain;
 
 import java.time.LocalDateTime;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class CameraRead {
 
     private String plate;

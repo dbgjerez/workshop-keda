@@ -14,60 +14,81 @@ import (
 )
 
 const (
-	kafkaBroker  = "KAFKA_BROKER"
-	kafkaTopic   = "KAFKA_CAMERA_NEW_PICTURE_TOPIC"
-	clientCerPem = "CLIENT_CER_PEM_FILE"
-	clientKeyPem = "CLIENT_KEY_PEM_FILE"
-	serverCerPem = "SERVER_CER_PEM_FILE"
+	kafkaBroker            = "KAFKA_BROKER"
+	kafkaTopic             = "KAFKA_CAMERA_NEW_PICTURE_TOPIC"
+	defaultValueKafkaTopic = "camera-new-picture"
+	clientCerPem           = "CLIENT_CER_PEM_FILE"
+	clientKeyPem           = "CLIENT_KEY_PEM_FILE"
+	serverCerPem           = "SERVER_CER_PEM_FILE"
+	enableTLS              = "KAFKA_ENABLE_TLS"
+	enableTLSDefault       = "false"
 )
+
+type TLSMetadata struct {
+	enableTLS     bool
+	clientCerFile string
+	clientKeyFile string
+	serverCerFile string
+}
 
 type CameraReadService struct {
 	w *kafka.Writer
 }
 
-func NewCameraReadService() *CameraReadService {
-	kafkaBroker := utils.GetEnv(kafkaBroker, "localhost:9092")
-	cameraTopic := utils.GetEnv(kafkaTopic, "camera")
-	clientCerFile := utils.GetEnv(clientCerPem, "client.cer.pem")
-	clientKeyFile := utils.GetEnv(clientKeyPem, "client.key.pem")
-	serverCerFile := utils.GetEnv(serverCerPem, "server.cer.pem")
-	tlsConfig, _ := NewTLSConfig(clientCerFile, clientKeyFile, serverCerFile)
-	tlsConfig.InsecureSkipVerify = true
-
-	w := &kafka.Writer{
-		Addr:                   kafka.TCP(kafkaBroker),
-		Topic:                  cameraTopic,
-		Balancer:               &kafka.LeastBytes{},
-		AllowAutoTopicCreation: true,
-		Async:                  true,
-		Transport: &kafka.Transport{
-			TLS: tlsConfig,
-		},
+func LoadTLSMetadata() TLSMetadata {
+	metadata := TLSMetadata{}
+	metadata.clientCerFile = utils.GetEnv(clientCerPem, "client.cer.pem")
+	metadata.clientKeyFile = utils.GetEnv(clientKeyPem, "client.key.pem")
+	metadata.serverCerFile = utils.GetEnv(serverCerPem, "server.cer.pem")
+	metadaEnableTLS := utils.GetEnv(enableTLS, enableTLSDefault)
+	if metadaEnableTLS == "true" || metadaEnableTLS == "True" || metadaEnableTLS == "TRUE" {
+		metadata.enableTLS = true
 	}
-	return &CameraReadService{w: w}
+	return metadata
 }
 
-func NewTLSConfig(clientCertFile, clientKeyFile, caCertFile string) (*tls.Config, error) {
+func NewCameraReadService() *CameraReadService {
+	kafkaBroker := utils.GetEnv(kafkaBroker, "localhost:9092")
+	cameraTopic := utils.GetEnv(kafkaTopic, defaultValueKafkaTopic)
+	metadaTLS := LoadTLSMetadata()
+	write := kafka.Writer{
+		Addr:     kafka.TCP(kafkaBroker),
+		Topic:    cameraTopic,
+		Balancer: &kafka.LeastBytes{},
+		Async:    true,
+	}
+	if metadaTLS.enableTLS {
+		tlsConfig, _ := NewTLSConfig(metadaTLS)
+		write.Transport = &kafka.Transport{
+			TLS: tlsConfig,
+		}
+	}
+	return &CameraReadService{w: &write}
+}
+
+func NewTLSConfig(metada TLSMetadata) (*tls.Config, error) {
 	tlsConfig := tls.Config{}
+	if metada.enableTLS {
+		// Load client cert
+		cert, err := tls.LoadX509KeyPair(metada.clientCerFile, metada.clientCerFile)
+		if err != nil {
+			return &tlsConfig, err
+		}
+		tlsConfig.Certificates = []tls.Certificate{cert}
 
-	// Load client cert
-	cert, err := tls.LoadX509KeyPair(clientCertFile, clientKeyFile)
-	if err != nil {
-		return &tlsConfig, err
+		// Load CA cert
+		caCert, err := ioutil.ReadFile(metada.serverCerFile)
+		if err != nil {
+			return &tlsConfig, err
+		}
+		caCertPool := x509.NewCertPool()
+		caCertPool.AppendCertsFromPEM(caCert)
+		tlsConfig.RootCAs = caCertPool
+
+		tlsConfig.BuildNameToCertificate()
+		tlsConfig.InsecureSkipVerify = true
 	}
-	tlsConfig.Certificates = []tls.Certificate{cert}
-
-	// Load CA cert
-	caCert, err := ioutil.ReadFile(caCertFile)
-	if err != nil {
-		return &tlsConfig, err
-	}
-	caCertPool := x509.NewCertPool()
-	caCertPool.AppendCertsFromPEM(caCert)
-	tlsConfig.RootCAs = caCertPool
-
-	tlsConfig.BuildNameToCertificate()
-	return &tlsConfig, err
+	return &tlsConfig, nil
 }
 
 func (service *CameraReadService) CreateCameraRead(cameraRead dto.CameraRead) error {
@@ -75,7 +96,7 @@ func (service *CameraReadService) CreateCameraRead(cameraRead dto.CameraRead) er
 	message := kafka.Message{Value: msg}
 	err := service.w.WriteMessages(context.Background(), message)
 	if err != nil {
-		log.Printf("%v", err)
+		log.Printf("Error trying to send data to Kafka: %v", err)
 		return err
 	}
 	return nil

@@ -1,0 +1,5 @@
+service:
+  name: billing-crud
+mariadb:
+  database: billing
+  user: billing
