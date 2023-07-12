@@ -21,6 +21,7 @@ spec:
       name: '{{env}}-mariadb-{{app}}'
       labels: 
         env: '{{env}}'
+        app: '{{app}}'
         type: database
     spec:
       destination:
