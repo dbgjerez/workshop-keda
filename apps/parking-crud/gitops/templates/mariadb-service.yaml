@@ -4,8 +4,8 @@ metadata:
   name: mariadb-{{ .Values.service.name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    name: mariadb-{{ .Values.service.name | quote }}
-    version: mariadb-{{ .Values.service.version | quote }}
+    name: mariadb-{{ .Values.service.name }}
+    version: mariadb-{{ .Values.service.version }}
 spec:
   ports:
   - name: http
@@ -13,4 +13,4 @@ spec:
     protocol: TCP
     targetPort: 3306
   selector:
-    name: mariadb-{{ .Values.service.name | quote }}
+    name: mariadb-{{ .Values.service.name }}
