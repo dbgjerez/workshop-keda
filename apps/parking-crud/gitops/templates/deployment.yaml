@@ -31,7 +31,7 @@ spec:
           {{- end }}
           {{- end }}
           - name: QUARKUS_DATASOURCE_JDBC_URL
-            value: jdbc:mariadb://mariadb-{{ .Values.service.name }}/{{ .Values.mariadb.database }}
+            value: jdbc:mariadb://mariadb-{{ .Values.service.name }}:3306/{{ .Values.mariadb.database }}
           - name: QUARKUS_DATASOURCE_USERNAME
             value: {{ .Values.mariadb.user }}
           - name: QUARKUS_DATASOURCE_PASSWORD
