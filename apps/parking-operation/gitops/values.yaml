@@ -20,10 +20,12 @@ deployment:
 kafka:
   name: kafka
   bootstrap:
-    servers: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-f9zjr.f9zjr.sandbox2590.opentlc.com:443
+    servers: kafka-kafka-bootstrap.kafka.svc.cluster.local:9092
   topic:
     camera:
       name: camera-new-picture
+  acl:
+    active: false
 
 config:
   env:
