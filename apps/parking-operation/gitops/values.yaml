@@ -20,7 +20,7 @@ deployment:
 kafka:
   name: kafka
   bootstrap:
-    servers: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9092
+    servers: kafka-kafka-bootstrap.kafka.svc.cluster.local:9092
   topic:
     camera:
       name: camera-new-picture

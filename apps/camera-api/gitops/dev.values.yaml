@@ -6,6 +6,6 @@ deployment:
 config:
   env:
     - name: KAFKA_BROKER
-      value: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9092
+      value: kafka-kafka-bootstrap.kafka.svc.cluster.local:9092
     - name: KAFKA_CAMERA_NEW_PICTURE_TOPIC
       value: camera-new-picture
