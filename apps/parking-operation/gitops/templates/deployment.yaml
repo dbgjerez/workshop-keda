@@ -40,19 +40,14 @@ spec:
               readOnly: true
           {{ end }}
           env:
-          {{- range .Values.config.env }}
-          {{- $envItem := . -}}
-          {{- with $ }}
-            - name: {{ $envItem.name | upper |  replace "-" "_" | quote}}
-              value: {{ $envItem.value | quote }}
-          {{- end }}
-          {{- end }}
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: {{ .Values.kafka.bootstrap.servers }}
             - name: mp.messaging.incoming.camera.topic
               value: {{ .Values.kafka.topic.camera.name }}
             - name: mp.messaging.incoming.camera.group.id
               value: cg-{{ .Values.service.name }}
+            - name: QUARKUS_JACKSON_TIMEZONE
+              value: UTC
             {{- if .Values.kafka.acl.active }}
             - name: KAFKA_SSL_KEYSTORE_LOCATION
               value: /certs/user.p12

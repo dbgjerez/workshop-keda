@@ -2,11 +2,3 @@ service:
   version: 0.1.1
 config:
   env:
-    - name: QUARKUS_LOG_LEVEL
-      value: DEBUG
-    - name: QUARKUS_LOG_CONSOLE_LEVEL
-      value: DEBUG
-    - name: CONSUMER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
-      value: ""
-    - name: QUARKUS_JACKSON_TIMEZONE
-      value: UTC
