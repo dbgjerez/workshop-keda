@@ -1,6 +1,6 @@
 service:
-  name: fares-crud
-  image: quay.io/dborrego/keda-fares-crud
+  name: invoice-crud
+  image: quay.io/dborrego/keda-invoice-crud
   version: 0.1
 
 deployment:
@@ -18,8 +18,8 @@ deployment:
       memory: 256Mi
 
 mariadb:
-  database: fares
-  user: fares
+  database: invoice
+  user: invoice
 
 config:
   env:

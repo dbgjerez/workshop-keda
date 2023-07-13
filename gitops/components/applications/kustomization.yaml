@@ -4,3 +4,5 @@ resources:
   - camera-api.yaml
   - parking-operation.yaml
   - parking-crud.yaml
+  - invoice-crud.yaml
+  - fares-crud.yaml
