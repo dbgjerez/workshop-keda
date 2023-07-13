@@ -1,39 +1,32 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: mariadb
+  name: invoice-crud
   namespace: openshift-gitops
 spec:
   generators:
   - list:
       elements:
-      - app: parking-crud
-        env: dev
-        namespace: dev-data
-      - app: invoice-crud
-        env: dev
-        namespace: dev-data
-      - app: fares-crud
-        env: dev
+      - env: dev
         namespace: dev-data
   template:
     metadata: 
-      name: '{{env}}-mariadb-{{app}}'
+      name: '{{env}}-invoice-crud'
       labels: 
         env: '{{env}}'
-        app: '{{app}}'
-        type: database
+        type: app
+        lang: go
     spec:
       destination:
         namespace: '{{namespace}}'
         server: "https://kubernetes.default.svc"
       source:
-        path: gitops/tenants/mariadb/
+        path: apps/invoice-crud/gitops
         repoURL: "https://github.com/dbgjerez/workshop-keda"
         targetRevision: 9-git-ops-structure
         helm:
           valueFiles:
-            - '{{app}}.{{env}}.values.yaml'
+            - '{{env}}.values.yaml'
       project: default
       syncPolicy:
         automated:
