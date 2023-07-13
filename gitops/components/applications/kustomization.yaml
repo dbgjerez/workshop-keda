@@ -5,3 +5,4 @@ resources:
   - parking-operation.yaml
   - parking-crud.yaml
   - invoice-crud.yaml
+  - fares-crud.yaml
