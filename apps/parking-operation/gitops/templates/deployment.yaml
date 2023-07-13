@@ -19,6 +19,7 @@ spec:
         version: {{ .Values.service.version | quote }}
     spec:
       serviceAccountName: {{ .Values.service.name }}
+      {{- if .Values.kafka.acl.active }}
       volumes:
         - name: kafka
           secret: 
@@ -28,13 +29,16 @@ spec:
               path: ca.p12
             - key: user.p12
               path: user.p12
+      {{ end }}
       containers:
         - name: {{ .Values.service.name }}
           image: {{ .Values.service.image }}:{{ .Values.service.version }}
+          {{- if .Values.kafka.acl.active }}
           volumeMounts:
             - name: kafka
               mountPath: "/certs"
               readOnly: true
+          {{ end }}
           env:
           {{- range .Values.config.env }}
           {{- $envItem := . -}}
@@ -43,18 +47,15 @@ spec:
               value: {{ $envItem.value | quote }}
           {{- end }}
           {{- end }}
-            - name: quarkus.vertx.max-event-loop-execute-time
-              value: "10000000000"
-            - name: mp.messaging.incoming.camera.lag
-              value: "1000"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: {{ .Values.kafka.bootstrap.servers }}
             - name: mp.messaging.incoming.camera.topic
               value: {{ .Values.kafka.topic.camera.name }}
             - name: mp.messaging.incoming.camera.group.id
               value: cg-{{ .Values.service.name }}
+            {{- if .Values.kafka.acl.active }}
             - name: KAFKA_SSL_KEYSTORE_LOCATION
               value: /certs/user.p12
-            - name: KAFKA_BOOTSTRAP_SERVERS
-              value: {{ .Values.kafka.bootstrap.servers }}
             - name: KAFKA_SSL_TRUSTSTORE_LOCATION
               value: /certs/ca.p12
             - name: KAFKA_SSL_KEYSTORE_PASSWORD
@@ -67,6 +68,7 @@ spec:
                 secretKeyRef:
                   name: kafka-connection
                   key: ca.password
+            {{ end }}
           ports:
             - name: http
               containerPort: {{ .Values.deployment.port }}

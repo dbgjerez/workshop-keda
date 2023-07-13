@@ -1,3 +1,5 @@
+{{- if .Values.kafka.acl.active }}
+
 apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
@@ -14,3 +16,5 @@ spec:
   - parameter: password
     name: keda-kafka-connection
     key: password
+
+{{ end }}

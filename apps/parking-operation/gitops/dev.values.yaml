@@ -3,22 +3,12 @@ service:
 config:
   env:
     - name: KAFKA_BOOTSTRAP_SERVERS
-      value: kafka-kafka-routetls-bootstrap-kafka.apps.cluster-f9zjr.f9zjr.sandbox2590.opentlc.com:443
+      value: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9092
     - name: QUARKUS_LOG_LEVEL
       value: DEBUG
     - name: QUARKUS_LOG_CONSOLE_LEVEL
       value: DEBUG
-    - name: KAFKA_SSL_TRUSTORE_TYPE
-      value: PKCS12
-    - name: KAFKA_SSL_KEYSTORE_TYPE
-      value: PKCS12
-    - name: KAFKA_SECURITY_PROTOCOL
-      value: SSL
-    - name: SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
-      value: ""
     - name: CONSUMER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
       value: ""
-    - name: quarkus.jackson.write-dates-as-timestamps
-      value: "true"
     - name: QUARKUS_JACKSON_TIMEZONE
       value: UTC

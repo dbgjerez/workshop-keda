@@ -20,5 +20,7 @@ spec:
       # Optional
       lagThreshold: "5"
       offsetResetPolicy: latest
-    # authenticationRef:
-      # name: keda-trigger-auth-kafka-credential
+      {{- if .Values.kafka.acl.active }}
+        authenticationRef:
+          name: keda-trigger-auth-kafka-credential
+      {{ end }}
