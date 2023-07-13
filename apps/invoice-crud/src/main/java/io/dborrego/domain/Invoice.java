@@ -12,21 +12,21 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Parking {
+public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String plate;
-    private String vehicleType;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
-    private Date entranceDate;
+    private Date invoiceDate;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
-    private Date departureDate;
+    private Date paymentDate;
+    private Float amount;
 
-    public Parking() {
+    public Invoice() {
     }
 
     public Long getId() {
@@ -45,28 +45,28 @@ public class Parking {
         this.plate = plate;
     }
 
-    public String getVehicleType() {
-        return this.vehicleType;
+    public Date getInvoiceDate() {
+        return this.invoiceDate;
     }
 
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 
-    public Date getEntranceDate() {
-        return this.entranceDate;
+    public Date getPaymentDate() {
+        return this.paymentDate;
     }
 
-    public void setEntranceDate(Date entranceDate) {
-        this.entranceDate = entranceDate;
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public Date getDepartureDate() {
-        return this.departureDate;
+    public Float getAmount() {
+        return this.amount;
     }
 
-    public void setDepartureDate(Date departureDate) {
-        this.departureDate = departureDate;
+    public void setAmount(Float amount) {
+        this.amount = amount;
     }
 
 }

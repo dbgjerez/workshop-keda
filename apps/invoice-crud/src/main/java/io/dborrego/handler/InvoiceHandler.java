@@ -15,39 +15,39 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.reactive.RestResponse;
 
-import io.dborrego.domain.Parking;
-import io.dborrego.service.ParkingService;
+import io.dborrego.domain.Invoice;
+import io.dborrego.service.InvoiceService;
 
-@Path("/parking")
-public class ParkingHandler {
+@Path("/invoice")
+public class InvoiceHandler {
 
     @Inject
-    ParkingService parkingService;
+    InvoiceService invoiceService;
 
     @GET
-    public List<Parking> list() {
-        return parkingService.listAll();
+    public List<Invoice> list() {
+        return invoiceService.listAll();
     }
 
     @GET
     @Path("/{id}")
-    public Parking get(Long id) {
-        return parkingService.findById(id);
+    public Invoice get(Long id) {
+        return invoiceService.findById(id);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Parking create(Parking parking) {
-        return parkingService.saveOrUpdate(parking);
+    public Invoice create(Invoice parking) {
+        return invoiceService.saveOrUpdate(parking);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<Void> update(Parking parking) {
+    public RestResponse<Void> update(Invoice parking) {
         try {
-            parkingService.saveOrUpdate(parking);
+            invoiceService.saveOrUpdate(parking);
         } catch (Exception e) {
             return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR);
         }
@@ -58,7 +58,7 @@ public class ParkingHandler {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<Void> delete(Long id) {
-        if (parkingService.deleteById(id))
+        if (invoiceService.deleteById(id))
             return RestResponse.status(Response.Status.OK);
         else
             return RestResponse.status(Response.Status.NOT_FOUND);

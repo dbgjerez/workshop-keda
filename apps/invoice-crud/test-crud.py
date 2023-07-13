@@ -6,7 +6,7 @@ from colorama import Fore, Style
 scheme="http"
 host="localhost"
 port=8080
-path="/parking"
+path="/invoice"
 url=scheme+"://"+host+":"+str(port)+path
 
 def getAllElements(url):
@@ -42,7 +42,7 @@ res = getAllElements(url)
 deleteAllElements(url, res)
 
 print("TESTING CREATE")
-payload = {'plate': '0000GGG', 'vehicleType': 3}
+payload = {'plate': '0000GGG', 'amount': 12.30}
 r = requests.post(url, json.dumps(payload))
 msg = "Creating first element: {}".format(r.status_code)
 printResult(msg, 200, r.status_code)
@@ -69,18 +69,18 @@ printResult("Expected plate {} and received {}".format(newPlate, plateReceived),
              newPlate, 
              plateReceived)
 
-dateIn = "2023-07-05T15:59:00Z"
-obj["entranceDate"]=dateIn
+invoiceDate = "2023-07-05T15:59:00Z"
+obj["invoiceDate"]=invoiceDate
 r = requests.put(url, json.dumps(obj))
-msg = "Updating entranceDate: {}".format(r.status_code)
+msg = "Updating invoiceDate: {}".format(r.status_code)
 printResult(msg, 200, r.status_code)
 id=str(res[0]["id"])
 r = requests.get(url+"/"+id)
 obj = r.json()
-dateInReceived=obj["entranceDate"]
-printResult("Expected entrance date {} and received {}".format(dateIn, dateInReceived),
-             dateIn, 
-             dateInReceived)
+invoiceDateReceived=obj["invoiceDate"]
+printResult("Expected entrance date {} and received {}".format(invoiceDate, invoiceDateReceived),
+             invoiceDate, 
+             invoiceDateReceived)
 
 res = getAllElements(url)
 
