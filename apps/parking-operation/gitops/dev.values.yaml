@@ -2,8 +2,6 @@ service:
   version: 0.1.1
 config:
   env:
-    - name: KAFKA_BOOTSTRAP_SERVERS
-      value: kafka-kafka-routetls-bootstrap.kafka.svc.cluster.local:9092
     - name: QUARKUS_LOG_LEVEL
       value: DEBUG
     - name: QUARKUS_LOG_CONSOLE_LEVEL
