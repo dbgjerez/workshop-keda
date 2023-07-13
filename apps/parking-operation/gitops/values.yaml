@@ -24,8 +24,6 @@ kafka:
   topic:
     camera:
       name: camera-new-picture
-
-kafka:
   acl:
     active: false
 
