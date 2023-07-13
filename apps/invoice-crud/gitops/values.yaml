@@ -1,6 +1,6 @@
 service:
-  name: book-crud
-  image: quay.io/dborrego/book-crud
+  name: parking-crud
+  image: quay.io/dborrego/keda-parking-crud
   version: 0.1
 
 deployment:
@@ -17,11 +17,9 @@ deployment:
       cpu: 100m
       memory: 256Mi
 
-kafka:
-  name: kafka
-  topic:
-    stock:
-      name: stock
+mariadb:
+  database: parking
+  user: parking
 
 config:
   env:
