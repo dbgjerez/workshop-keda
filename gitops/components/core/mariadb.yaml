@@ -10,7 +10,7 @@ spec:
       - app: parking-crud
         env: dev
         namespace: dev-data
-      - app: billing-crud
+      - app: invoice-crud
         env: dev
         namespace: dev-data
       - app: fares-crud
