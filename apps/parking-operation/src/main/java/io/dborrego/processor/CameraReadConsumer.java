@@ -8,8 +8,9 @@ import javax.transaction.Transactional;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
+import io.dborrego.client.ParkingClient;
 import io.dborrego.domain.CameraRead;
-import io.dborrego.service.CameraReadService;
+import io.dborrego.service.ParkingOperationService;
 
 @ApplicationScoped
 public class CameraReadConsumer {
@@ -17,11 +18,12 @@ public class CameraReadConsumer {
     private static final Logger LOGGER = Logger.getLogger(CameraReadConsumer.class.getName());
 
     @Inject
-    CameraReadService bookService;
+    ParkingOperationService service;
 
     @Incoming("camera")
     @Transactional
     public void update(final CameraRead reading) {
+
         if (reading != null) {
             LOGGER.info(String.format("Received %s", reading));
         }

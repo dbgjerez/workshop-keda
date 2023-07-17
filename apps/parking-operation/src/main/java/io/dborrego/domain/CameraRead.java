@@ -1,6 +1,7 @@
 package io.dborrego.domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
@@ -9,7 +10,7 @@ public class CameraRead {
 
     private String plate;
     private String type;
-    private LocalDateTime date;
+    private Date date;
 
     public String getPlate() {
         return this.plate;
@@ -27,11 +28,11 @@ public class CameraRead {
         this.type = type;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return this.date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
