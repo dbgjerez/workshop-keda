@@ -2,30 +2,28 @@ package io.dborrego.client;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import io.dborrego.domain.ParkingDTO;
+import io.dborrego.domain.InvoiceDTO;
 
 @ApplicationScoped
-public class ParkingClient implements Client<ParkingDTO> {
+public class InvoiceClient implements Client<InvoiceDTO> {
 
     @Override
-    public ParkingDTO findById(Long id) {
+    public InvoiceDTO findById(Long id) {
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
-    public ParkingDTO findLastByPlate(String string) {
-        throw new UnsupportedOperationException("Unimplemented method 'findLastByPlate'");
-    }
-
     @Override
-    public ParkingDTO create(ParkingDTO obj) {
+    public InvoiceDTO create(InvoiceDTO obj) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
     }
 
     @Override
-    public void update(ParkingDTO obj, Long id) {
+    public void update(InvoiceDTO obj, Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
     
 }

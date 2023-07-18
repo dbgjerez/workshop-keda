@@ -17,4 +17,16 @@ public class FaresClient implements Client<FareDTO> {
         return null;
     }
 
+    @Override
+    public FareDTO create(FareDTO obj) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
+
+    @Override
+    public void update(FareDTO obj, Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
 }
