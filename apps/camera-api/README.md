@@ -3,6 +3,7 @@
 # Configuration
 | Variable | Default value | Description |
 | ------ | ------ | ------ |
+| SERVER_PORT | 8080 | Application port |
 | GIN_MODE | debug | Gin gonic mode. (release for production mode) |
 | SERVICE_VERSION | none | Service version, should be setted in compile time |
 | SERVICE_NAME | camera-api | Service name |
