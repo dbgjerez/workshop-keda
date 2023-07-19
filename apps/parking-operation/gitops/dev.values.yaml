@@ -1,2 +1,8 @@
 service:
   version: 0.2
+config:
+  env:
+    - name: quarkus.rest-client.client-fares.url
+      value: fares-crud.dev-data.svc.cluster.local:9092
+    - name: quarkus.rest-client.client-parking.url
+      value: parking-crud.dev-data.svc.cluster.local:9092
