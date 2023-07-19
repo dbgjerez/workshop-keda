@@ -3,6 +3,6 @@ service:
 config:
   env:
     - name: quarkus.rest-client.client-fares.url
-      value: fares-crud.dev-data.svc.cluster.local
+      value: http://fares-crud.dev-data.svc.cluster.local
     - name: quarkus.rest-client.client-parking.url
-      value: parking-crud.dev-data.svc.cluster.local
+      value: http://parking-crud.dev-data.svc.cluster.local
