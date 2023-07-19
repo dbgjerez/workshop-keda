@@ -43,7 +43,7 @@ spec:
           {{- range .Values.config.env }}
           {{- $envItem := . -}}
           {{- with $ }}
-            - name: {{ $envItem.name | upper |  replace "-" "_" | quote}}
+            - name: {{ $envItem.name | upper |  replace "-" "_" |  replace "." "_" | quote}}
               value: {{ $envItem.value | quote }}
           {{- end }}
           {{- end }}
