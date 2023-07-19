@@ -50,7 +50,8 @@ Create the topic:
 
 ```bash
 podman exec -it kafka-zkless bash
-bin/kafka-topics.sh --create --replication-factor 2 --partitions 2 --topic camera-new-picture
+
+bin/kafka-topics.sh --create --replication-factor 1 --partitions 1 --bootstrap-server localhost:9092 --topic camera-new-picture
 ```
 
 To see the topic data we need a consumer. You can use whatever you want, in my case, I'm using ```kcat```
