@@ -48,7 +48,7 @@ public class ParkingOperationService {
             invoiceClient.createInvoice(invoice);
         } else {
             // The car is entering in the parking
-            log.info(String.format("The car %s is getting out the parking", reading.getPlate()));
+            log.info(String.format("The car %s is going into the parking", reading.getPlate()));
             var p = createParking(reading.getDate(),
                     reading.getPlate(),
                     reading.getType());
