@@ -33,7 +33,7 @@ curl -X POST \
 You can run your application in dev mode that enables live coding using:
 
 ```shell script
-mvn quarkus:dev
+mvn quarkus:dev -Ddebug=5007 -Dquarkus.http.port=8093
 ```
 
 ## Native compilation

@@ -7,7 +7,7 @@
 ```bash
 podman run \
     -d  \
-    --name mariadb  \
+    --name mariadb-fares  \
     --env MARIADB_USER=parking \
     --env MARIADB_PASSWORD=parking123 \
     --env MARIADB_ROOT_PASSWORD=parking123 \
@@ -21,7 +21,7 @@ podman run \
 #### Create an entrance
 ```bash
 curl -X POST \
-    --data '{"vehicleType": "3", "minutePrice": 0,02}' \
+    --data '{"vehicleType": "3", "minutePrice": 0.02}' \
     -H 'Content-Type: application/json' \
     localhost:8080/fares
 ```
