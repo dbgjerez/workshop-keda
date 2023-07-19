@@ -2,11 +2,11 @@ package io.dborrego.service;
 
 import java.time.Duration;
 import java.time.ZoneId;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.Optional;
+import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.dborrego.client.FaresClient;
 import io.dborrego.client.InvoiceClient;
@@ -15,33 +15,40 @@ import io.dborrego.domain.CameraRead;
 import io.dborrego.domain.FareDTO;
 import io.dborrego.domain.InvoiceDTO;
 import io.dborrego.domain.ParkingDTO;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class ParkingOperationService {
 
-    @Inject
+    private static final Logger log = Logger.getLogger(ParkingOperationService.class.getName());
+
+    @RestClient
     ParkingClient parkingClient;
 
-    @Inject
+    @RestClient
     FaresClient faresClient;
 
     @Inject
     InvoiceClient invoiceClient;
 
-    public void newCar(CameraRead reading) {
-        var lastCarParking = Optional.ofNullable(parkingClient.findLastByPlate(reading.getPlate()));
-        if (lastCarParking.isPresent() &&
-                lastCarParking.map(ParkingDTO::getDepartureDate).isEmpty()) {
-            // The car is getting out of the parking
-            var parking = lastCarParking.get();
+    public void newReading(CameraRead reading) {
+        var lastCarParking = parkingClient.findLastByPlateParked(reading.getPlate(), true);
+        if (!lastCarParking.isEmpty() &&
+                !lastCarParking.stream().max(Comparator.comparing(p -> p.getEntranceDate()))
+                        .map(ParkingDTO::getDepartureDate).isPresent()) {
+            var parking = lastCarParking.stream().max(Comparator.comparing(p -> p.getEntranceDate())).get();
+
+            log.info(String.format("The car %s is getting out the parking", parking.getPlate()));
             var minutes = parkingMinutes(parking.getEntranceDate(), reading.getDate());
             var total = invoiceTotalPrice(minutes, parking.getVehicleType());
             var invoice = createInvoice(parking, total);
             parking.setDepartureDate(reading.getDate());
             parkingClient.update(parking, parking.getId());
-            invoiceClient.create(invoice);
+            invoiceClient.createInvoice(invoice);
         } else {
             // The car is entering in the parking
+            log.info(String.format("The car %s is getting out the parking", reading.getPlate()));
             var p = createParking(reading.getDate(),
                     reading.getPlate(),
                     reading.getType());
@@ -49,15 +56,15 @@ public class ParkingOperationService {
         }
     }
 
-    public ParkingDTO createParking(Date date, String plate, String vehicleType) {
+    private ParkingDTO createParking(Date date, String plate, String vehicleType) {
         final ParkingDTO parking = new ParkingDTO();
-        parking.setDepartureDate(date);
+        parking.setEntranceDate(date);
         parking.setPlate(plate);
         parking.setVehicleType(vehicleType);
         return parking;
     }
 
-    public InvoiceDTO createInvoice(ParkingDTO parking, Float total) {
+    private InvoiceDTO createInvoice(ParkingDTO parking, Float total) {
         final InvoiceDTO invoice = new InvoiceDTO();
         invoice.setId(parking.getId());
         invoice.setAmount(total);
@@ -66,16 +73,17 @@ public class ParkingOperationService {
         return invoice;
     }
 
-    public Float invoiceTotalPrice(Integer minutes, String vehicleType) {
-        var fare = faresClient.findByType(vehicleType);
-        return Optional.ofNullable(fare)
+    private Float invoiceTotalPrice(Integer minutes, String vehicleType) {
+        var fares = faresClient.getByVehicleType(vehicleType);
+        return fares.stream()
+                .findAny() // Only one active fare
                 .map(FareDTO::getMinutePrice)
                 .map(price -> price * minutes)
                 .orElseThrow(
                         () -> new RuntimeException(String.format("Fare for vehicleType = %s not found", vehicleType)));
     }
 
-    public Integer parkingMinutes(final Date enterDate, final Date outDate) {
+    private Integer parkingMinutes(final Date enterDate, final Date outDate) {
         var in = enterDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         var out = outDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         return Math.toIntExact(Math.abs(Duration.between(in, out).toMinutes()));

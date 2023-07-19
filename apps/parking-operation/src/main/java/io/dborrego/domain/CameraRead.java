@@ -1,6 +1,5 @@
 package io.dborrego.domain;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
@@ -34,6 +33,15 @@ public class CameraRead {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " plate='" + getPlate() + "'" +
+                ", type='" + getType() + "'" +
+                ", date='" + getDate() + "'" +
+                "}";
     }
 
 }

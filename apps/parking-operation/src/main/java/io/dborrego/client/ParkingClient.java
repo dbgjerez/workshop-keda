@@ -1,31 +1,28 @@
 package io.dborrego.client;
 
-import javax.enterprise.context.ApplicationScoped;
+import java.util.Set;
+
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import org.jboss.resteasy.reactive.RestQuery;
 
 import io.dborrego.domain.ParkingDTO;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.QueryParam;
 
-@ApplicationScoped
-public class ParkingClient implements Client<ParkingDTO> {
+@Path("/parking")
+@RegisterRestClient(configKey = "client-parking")
+public interface ParkingClient {
 
-    @Override
-    public ParkingDTO findById(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
-    }
+    @GET
+    public Set<ParkingDTO> findLastByPlateParked(@RestQuery("plate") String plate, @RestQuery("parked") Boolean parked);
 
-    public ParkingDTO findLastByPlate(String string) {
-        throw new UnsupportedOperationException("Unimplemented method 'findLastByPlate'");
-    }
+    @PUT
+    public void update(ParkingDTO parking, @QueryParam("id") Long id);
 
-    @Override
-    public ParkingDTO create(ParkingDTO obj) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
-    }
+    @POST
+    public void create(ParkingDTO parking);
 
-    @Override
-    public void update(ParkingDTO obj, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-    
 }
