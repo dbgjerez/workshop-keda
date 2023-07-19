@@ -8,3 +8,5 @@
 # 0.3 - 07/07/2023
 - No TLS option
 
+## 0.3.1 - 18/07/2023
+- Server port fail, the env variable didn't be used.
