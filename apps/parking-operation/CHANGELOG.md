@@ -1,3 +1,6 @@
+???
+- Log trace correctly in ParkingOperationService
+
 # 0.2 - 19/07/2023
 - Algorithm to create a invoice without save it
 
