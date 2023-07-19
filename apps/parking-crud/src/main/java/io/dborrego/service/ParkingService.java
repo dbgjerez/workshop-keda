@@ -16,8 +16,8 @@ public class ParkingService {
     @Inject
     ParkingRepository parkingRepository;
 
-    public List<Parking> listAll() {
-        return parkingRepository.listAll();
+    public List<Parking> listAll(String plate, Boolean parked) {
+        return parkingRepository.listAllByPlate(plate, parked);
     }
 
     public Parking findById(final Long idParking) {
