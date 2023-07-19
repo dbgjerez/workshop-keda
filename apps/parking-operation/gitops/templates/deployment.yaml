@@ -40,6 +40,13 @@ spec:
               readOnly: true
           {{ end }}
           env:
+          {{- range .Values.config.env }}
+          {{- $envItem := . -}}
+          {{- with $ }}
+            - name: {{ $envItem.name | upper |  replace "-" "_" | quote}}
+              value: {{ $envItem.value | quote }}
+          {{- end }}
+          {{- end }}
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: {{ .Values.kafka.bootstrap.servers }}
             - name: mp.messaging.incoming.camera.topic
