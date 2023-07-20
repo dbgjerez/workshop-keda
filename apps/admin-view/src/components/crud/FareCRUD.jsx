@@ -37,7 +37,7 @@ const FareCRUD = (config) => {
         console.log(obj)
     }
 
-    const createBook = () => {
+    const createFare = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -84,14 +84,12 @@ const updateScreen = () => {
     return (
         <Grid celled>
             <Grid.Row>
-                <Grid.Column width={11}>
+                <Grid.Column width={8}>
                     <Table celled padded>
                         <Table.Header>
                             <Table.Row>
-                                <Table.HeaderCell singleLine></Table.HeaderCell>
-                                <Table.HeaderCell>Title</Table.HeaderCell>
-                                <Table.HeaderCell>Stock</Table.HeaderCell>
-                                <Table.HeaderCell>Buy/Sell</Table.HeaderCell>
+                                <Table.HeaderCell singleLine>Vehicle Type</Table.HeaderCell>
+                                <Table.HeaderCell>Price per minute</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
@@ -100,42 +98,13 @@ const updateScreen = () => {
                                     data.map((data)=> {
                                         return (
                                             <Table.Row key={data.idBook}>
-                                                <Table.Cell>
-                                                    <Icon name="delete" data-id={data.idBook} onClick={ deleteById } />
-                                                </Table.Cell>
-                                                <Table.Cell>{data.title}</Table.Cell>
-                                                <Table.Cell>{data.stock}</Table.Cell>
-                                                <Table.Cell>
-                                                    <Form data-id={data.idBook} onSubmit={sendStock}>
-                                                    <FormGroup>
-                                                        <Form.Input inline
-                                                            icon='book'
-                                                            iconPosition='left'
-                                                            type='number'
-                                                            placeholder='quantity'
-                                                            defaultValue='1'
-                                                            onChange={handleStock}
-                                                        />
-                                                        <Form.Input inline
-                                                            icon='euro'
-                                                            iconPosition='left'
-                                                            type='text'
-                                                            placeholder='price'
-                                                            defaultValue='6,10'
-                                                            onChange={handlePrice}
-                                                        />
-                                                        <Form.Button id="buy" type='submit'>Compra</Form.Button>
-                                                        <Form.Button id="sell" type='submit'>Venta</Form.Button>
-                                                    </FormGroup>
-                                                    </Form>
-                                                </Table.Cell>
+                                                <Table.Cell>{data.vehicleType}</Table.Cell>
+                                                <Table.Cell>{data.minutePrice}</Table.Cell>
                                             </Table.Row>
                                         )
                                     }) : 
                                     (
                                         <Table.Row>
-                                            <Table.Cell></Table.Cell>
-                                            <Table.Cell></Table.Cell>
                                             <Table.Cell></Table.Cell>
                                             <Table.Cell></Table.Cell>
                                         </Table.Row>
@@ -144,9 +113,10 @@ const updateScreen = () => {
                         </Table.Body>
                     </Table>
                 </Grid.Column>
-                <Grid.Column width={5}>
-                    <Form onSubmit={createBook}>
-                        <Form.Input
+                <Grid.Column width={8}>
+                    <Form onSubmit={createFare}>
+                        <Form.Input 
+                            inline
                             icon='pencil alternate'
                             iconPosition='left'
                             label='Title'
@@ -154,7 +124,16 @@ const updateScreen = () => {
                             value={item.title}
                             onChange={handleTitle}
                             />
-                        <Form.Button type='submit'>Create</Form.Button>
+                        <Form.Input 
+                            inline
+                            icon='eur'
+                            iconPosition='left'
+                            label='Price/min'
+                            placeholder='Price/min'
+                            value={item.title}
+                            onChange={handleTitle}
+                            />
+                        <Form.Button inline type='submit'>Create</Form.Button>
                     </Form>
                 </Grid.Column>
             </Grid.Row>
