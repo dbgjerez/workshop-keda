@@ -7,8 +7,8 @@ const AppLayout = () => {
         <Grid celled>
             <Grid.Row>
             <Header as='h2' icon textAlign='center'>
-                <Icon name='book' circular />
-                <Header.Content>Keda Workshop</Header.Content>
+                <Icon name='car' circular />
+                <Header.Content>[workshop-keda] Parking</Header.Content>
             </Header>
             </Grid.Row>
             <Grid.Row>

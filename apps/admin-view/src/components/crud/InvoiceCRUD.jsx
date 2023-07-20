@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Icon, Form, FormGroup, Grid, Table } from 'semantic-ui-react'
 
-const BookCRUD = (config) => {
+const InvoiceCRUD = (config) => {
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState([]);
@@ -162,4 +162,4 @@ const updateScreen = () => {
     );
 }
 
-export default BookCRUD;
+export default InvoiceCRUD;

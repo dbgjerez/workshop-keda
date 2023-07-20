@@ -10,16 +10,22 @@ const sidebarNavItems = [
         section: ''
     },
     {
-        display: 'Books',
+        display: 'Fares',
         icon: <i className='bx bx-calendar'></i>,
-        to: '/books',
-        section: 'books'
+        to: '/fares',
+        section: 'fares'
     },
     {
-        display: 'Info',
+        display: 'Parking',
         icon: <i className='bx bx-user'></i>,
-        to: '/info',
-        section: 'info'
+        to: '/parking',
+        section: 'parking'
+    },
+    {
+        display: 'Invoice',
+        icon: <i className='bx bx-user'></i>,
+        to: '/invoice',
+        section: 'invoice'
     },
 ]
 
