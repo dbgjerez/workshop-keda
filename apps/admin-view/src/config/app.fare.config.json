@@ -1,5 +1,6 @@
 {
-    "host": "localhost",
-    "port": 8080,
-    "getAll": "/api/v1/film"
+    "host": "https://fares-crud-dev-data.apps.cluster-cdg8z.cdg8z.sandbox1734.opentlc.com",
+    "port": 443,
+    "getAll": "/fares",
+    "create": "/fares"
 }

@@ -1,65 +1,49 @@
 import { useEffect, useState } from "react";
-import { Icon, Form, FormGroup, Grid, Table } from 'semantic-ui-react'
+import { Form, Grid, Table } from 'semantic-ui-react'
 
 const FareCRUD = (config) => {
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState([]);
     const [item, setItem] = useState({});
-    const [stock, setStock] = useState({});
 
-    const handleStock = (e) => {
-        setStock({
-            ...stock,
-            quantity: e.target.value
-        })
-    }
-    const handlePrice = (e) => {
-        setStock({
-            ...stock,
-            price: e.target.value
-        })
-    }
-    const handleTitle = (e) => {
+    const handleVehicleType = (e, value) => {
         setItem({
             ...item,
-            title: e.target.value
+            vehicleType: value.value
         })
     }
 
-    const sendStock = (e) => {
-        var obj = {}
-        if (e.nativeEvent.submitter.id === 'sell') obj.quantity = (stock.quantity * -1)
-        else obj.quantity = stock.quantity
-        obj.price = parseFloat(stock.price.replace(",", "."))
-        obj.type='book'
-        obj.id=e.target.dataset.id
-        console.log(obj)
+    const handleMinutePrice = (e) => {
+        setItem({
+            ...item,
+            minutePrice: e.target.value
+        })
     }
-
+    
     const createFare = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(item)
         };
-        fetch(`http://localhost:8080/book/`, requestOptions)
+        fetch(config.config.host+":"+config.config.port+config.config.create, requestOptions)
             .then(
                 (res) => {
                     if(!res.ok) throw new Error(res.status)
                     else return res.json()
                 }
-            ).then(updateScreen)
+            ).then(updateScreen())
     }
 
-    const deleteById = (e) => {
-        console.log(e.target.dataset.id)
-        fetch(`http://localhost:8080/book/`+e.target.dataset.id, { method: 'DELETE' })
-            .then(updateScreen)
-    }
+const vehicleTypes = [
+    { key: 'car', text: 'Car', value: 'car' },
+    { key: 'motorbike', text: 'Motorbike', value: 'motorbike' },
+    { key: 'truck', text: 'Truck', value: 'truck' },
+]
 
 const updateScreen = () => {
-    fetch(`http://localhost:8080/book`)  
+    fetch(config.config.host+":"+config.config.port+config.config.getAll)  
         .then(
             (res) => {
                 if(!res.ok) throw new Error(res.status)
@@ -78,7 +62,7 @@ const updateScreen = () => {
 }
 
     useEffect(() => {
-        updateScreen()
+        updateScreen(config)
     }, [])
 
     return (
@@ -115,24 +99,24 @@ const updateScreen = () => {
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Form onSubmit={createFare}>
-                        <Form.Input 
-                            inline
-                            icon='pencil alternate'
-                            iconPosition='left'
-                            label='Title'
-                            placeholder='Book title'
-                            value={item.title}
-                            onChange={handleTitle}
-                            />
-                        <Form.Input 
-                            inline
-                            icon='eur'
-                            iconPosition='left'
-                            label='Price/min'
-                            placeholder='Price/min'
-                            value={item.title}
-                            onChange={handleTitle}
-                            />
+                        <Form.Group widths='equal'>
+                            <Form.Select inline
+                                iconPosition='left'
+                                options={vehicleTypes}
+                                label='Vehicle type'
+                                placeholder='Type'
+                                value={item.vehicleType}
+                                onChange={handleVehicleType}
+                                />
+                            <Form.Input inline
+                                icon='eur'
+                                iconPosition='left'
+                                label='Price/min'
+                                placeholder='Price/min'
+                                value={item.minutePrice}
+                                onChange={handleMinutePrice}
+                                />
+                        </Form.Group>
                         <Form.Button inline type='submit'>Create</Form.Button>
                     </Form>
                 </Grid.Column>
