@@ -1,40 +1,24 @@
 import { useEffect, useState } from "react";
-import { Icon, Form, FormGroup, Grid, Table } from 'semantic-ui-react'
+import { Icon, Form, FormGroup, Grid, Table, Checkbox } from 'semantic-ui-react'
 
 const ParkingCRUD = (config) => {
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isParked, setIsParked] = useState({});
     const [data, setData] = useState([]);
     const [item, setItem] = useState({});
     const [stock, setStock] = useState({});
+
+    const filterParked = (e, value) => {
+        setIsParked(value.checked)
+        updateScreen()
+    }
 
     const handleStock = (e) => {
         setStock({
             ...stock,
             quantity: e.target.value
         })
-    }
-    const handlePrice = (e) => {
-        setStock({
-            ...stock,
-            price: e.target.value
-        })
-    }
-    const handleTitle = (e) => {
-        setItem({
-            ...item,
-            title: e.target.value
-        })
-    }
-
-    const sendStock = (e) => {
-        var obj = {}
-        if (e.nativeEvent.submitter.id === 'sell') obj.quantity = (stock.quantity * -1)
-        else obj.quantity = stock.quantity
-        obj.price = parseFloat(stock.price.replace(",", "."))
-        obj.type='book'
-        obj.id=e.target.dataset.id
-        console.log(obj)
     }
 
     const createBook = () => {
@@ -59,7 +43,9 @@ const ParkingCRUD = (config) => {
     }
     
 const updateScreen = () => {
-    fetch(`https://parking-crud-dev-data.apps.cluster-cdg8z.cdg8z.sandbox1734.opentlc.com/parking`)  
+    let url = `https://parking-crud-dev-data.apps.cluster-cdg8z.cdg8z.sandbox1734.opentlc.com/parking`
+    if (isParked) url+='?parked=true'
+    fetch(url)  
         .then(
             (res) => {
                 if(!res.ok) throw new Error(res.status)
@@ -90,8 +76,8 @@ const updateScreen = () => {
 
     const minutes = (dateIn, dateOut) => {
         if (dateOut==null)
-            return ""
-        return new Date(dateIn) - new Date(dateOut) ;
+            dateOut=Date.now()
+        return Math.round(Math.abs(new Date(dateIn) - new Date(dateOut))/1000/60);
     }
 
     useEffect(() => {
@@ -100,6 +86,14 @@ const updateScreen = () => {
 
     return (
         <Grid celled>
+            <Grid.Row>
+                <Grid.Column width={11}>
+                    <Checkbox
+                        label="Into the parking"
+                        onChange={filterParked}
+                    />
+                </Grid.Column>
+            </Grid.Row>
             <Grid.Row>
                 <Grid.Column width={11}>
                     <Table celled padded>
@@ -139,19 +133,6 @@ const updateScreen = () => {
                             }
                         </Table.Body>
                     </Table>
-                </Grid.Column>
-                <Grid.Column width={5}>
-                    <Form onSubmit={createBook}>
-                        <Form.Input
-                            icon='pencil alternate'
-                            iconPosition='left'
-                            label='Title'
-                            placeholder='Book title'
-                            value={item.title}
-                            onChange={handleTitle}
-                            />
-                        <Form.Button type='submit'>Create</Form.Button>
-                    </Form>
                 </Grid.Column>
             </Grid.Row>
         </Grid>
