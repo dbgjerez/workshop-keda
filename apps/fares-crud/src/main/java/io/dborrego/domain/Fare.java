@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Fares {
+public class Fare {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +16,7 @@ public class Fares {
     private String vehicleType;
     private Float minutePrice;
 
-    public Fares() {
+    public Fare() {
     }
 
     public Long getId() {

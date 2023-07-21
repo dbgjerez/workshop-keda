@@ -10,12 +10,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.reactive.RestResponse;
 
-import io.dborrego.domain.Fares;
+import io.dborrego.domain.Fare;
 import io.dborrego.service.FaresService;
 
 @Path("/fares")
@@ -25,27 +26,27 @@ public class FareHandler {
     FaresService faresService;
 
     @GET
-    public List<Fares> list() {
-        return faresService.listAll();
+    public List<Fare> list(@QueryParam("vehicleType") String vehicleType) {
+        return faresService.listAll(vehicleType);
     }
 
     @GET
     @Path("/{id}")
-    public Fares get(Long id) {
+    public Fare get(Long id) {
         return faresService.findById(id);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Fares create(Fares parking) {
+    public Fare create(Fare parking) {
         return faresService.saveOrUpdate(parking);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<Void> update(Fares parking) {
+    public RestResponse<Void> update(Fare parking) {
         try {
             faresService.saveOrUpdate(parking);
         } catch (Exception e) {
