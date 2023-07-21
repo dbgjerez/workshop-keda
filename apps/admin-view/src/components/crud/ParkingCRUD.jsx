@@ -57,9 +57,9 @@ const ParkingCRUD = (config) => {
         fetch(`http://localhost:8080/book/`+e.target.dataset.id, { method: 'DELETE' })
             .then(updateScreen)
     }
-
+    
 const updateScreen = () => {
-    fetch(`http://localhost:8080/book`)  
+    fetch(`https://parking-crud-dev-data.apps.cluster-cdg8z.cdg8z.sandbox1734.opentlc.com/parking`)  
         .then(
             (res) => {
                 if(!res.ok) throw new Error(res.status)
@@ -75,7 +75,24 @@ const updateScreen = () => {
                 setError(error)
             )
         )
-}
+    }
+
+    const stringToDate = (str) => {
+        if (str == null) return ""
+        var options = { 
+            month: 'short', 
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
+          };
+        return new Date(str).toLocaleDateString('es-ES',options);
+    }
+
+    const minutes = (dateIn, dateOut) => {
+        if (dateOut==null)
+            return ""
+        return new Date(dateIn) - new Date(dateOut) ;
+    }
 
     useEffect(() => {
         updateScreen()
@@ -88,10 +105,11 @@ const updateScreen = () => {
                     <Table celled padded>
                         <Table.Header>
                             <Table.Row>
-                                <Table.HeaderCell singleLine></Table.HeaderCell>
-                                <Table.HeaderCell>Title</Table.HeaderCell>
-                                <Table.HeaderCell>Stock</Table.HeaderCell>
-                                <Table.HeaderCell>Buy/Sell</Table.HeaderCell>
+                                <Table.HeaderCell>Plate</Table.HeaderCell>
+                                <Table.HeaderCell>Type</Table.HeaderCell>
+                                <Table.HeaderCell>Entrance</Table.HeaderCell>
+                                <Table.HeaderCell>Departure</Table.HeaderCell>
+                                <Table.HeaderCell>Minutes</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
@@ -99,35 +117,13 @@ const updateScreen = () => {
                                 isLoaded ? 
                                     data.map((data)=> {
                                         return (
-                                            <Table.Row key={data.idBook}>
+                                            <Table.Row key={data.id}>
+                                                <Table.Cell>{data.plate}</Table.Cell>
+                                                <Table.Cell>{data.vehicleType}</Table.Cell>
+                                                <Table.Cell>{stringToDate(data.entranceDate)}</Table.Cell>
+                                                <Table.Cell>{stringToDate(data.departureDate)}</Table.Cell>
                                                 <Table.Cell>
-                                                    <Icon name="delete" data-id={data.idBook} onClick={ deleteById } />
-                                                </Table.Cell>
-                                                <Table.Cell>{data.title}</Table.Cell>
-                                                <Table.Cell>{data.stock}</Table.Cell>
-                                                <Table.Cell>
-                                                    <Form data-id={data.idBook} onSubmit={sendStock}>
-                                                    <FormGroup>
-                                                        <Form.Input inline
-                                                            icon='book'
-                                                            iconPosition='left'
-                                                            type='number'
-                                                            placeholder='quantity'
-                                                            defaultValue='1'
-                                                            onChange={handleStock}
-                                                        />
-                                                        <Form.Input inline
-                                                            icon='euro'
-                                                            iconPosition='left'
-                                                            type='text'
-                                                            placeholder='price'
-                                                            defaultValue='6,10'
-                                                            onChange={handlePrice}
-                                                        />
-                                                        <Form.Button id="buy" type='submit'>Compra</Form.Button>
-                                                        <Form.Button id="sell" type='submit'>Venta</Form.Button>
-                                                    </FormGroup>
-                                                    </Form>
+                                                    {minutes(data.entranceDate, data.departureDate)}
                                                 </Table.Cell>
                                             </Table.Row>
                                         )

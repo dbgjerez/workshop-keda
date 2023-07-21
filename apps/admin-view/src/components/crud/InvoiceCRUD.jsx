@@ -58,8 +58,10 @@ const InvoiceCRUD = (config) => {
             .then(updateScreen)
     }
 
-const updateScreen = () => {
-    fetch(`http://localhost:8080/book`)  
+
+
+    const updateScreen = () => {
+        fetch(`http://localhost:8080/book`)  
         .then(
             (res) => {
                 if(!res.ok) throw new Error(res.status)
@@ -75,7 +77,7 @@ const updateScreen = () => {
                 setError(error)
             )
         )
-}
+    }
 
     useEffect(() => {
         updateScreen()
