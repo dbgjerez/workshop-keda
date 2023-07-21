@@ -7,7 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import io.dborrego.domain.Fares;
+import io.dborrego.domain.Fare;
 import io.dborrego.domain.FaresRepository;
 
 @ApplicationScoped
@@ -16,19 +16,22 @@ public class FaresService {
     @Inject
     FaresRepository faresRepository;
 
-    public List<Fares> listAll() {
-        return faresRepository.listAll();
+    public List<Fare> listAll(String vehicleType) {
+        return faresRepository.listAll(vehicleType);
     }
 
-    public Fares findById(final Long idParking) {
+    public Fare findById(final Long idParking) {
         return faresRepository.findById(idParking);
     }
 
     @Transactional
-    public Fares saveOrUpdate(final Fares f) {
-        final Fares fare = Optional.ofNullable(f).map(Fares::getId).map(id -> faresRepository.findById(id))
-                .orElse(new Fares());
-        fare.setVehicleType(f.getVehicleType());
+    public Fare saveOrUpdate(final Fare f) {
+        final Fare fare = Optional.ofNullable(f).map(Fare::getId).map(id -> faresRepository.findById(id))
+                .orElse(new Fare());
+        fare.setVehicleType(Optional
+                .ofNullable(f.getVehicleType())
+                .map(String::toLowerCase)
+                .orElseThrow());
         fare.setMinutePrice(f.getMinutePrice());
         faresRepository.persist(fare);
         return fare;
