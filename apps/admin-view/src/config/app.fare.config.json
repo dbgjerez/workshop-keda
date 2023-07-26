@@ -1,5 +1,5 @@
 {
-    "host": "https://fares-crud-dev-data.apps.cluster-cdg8z.cdg8z.sandbox1734.opentlc.com",
+    "host": "https://fares-crud-dev-data.apps.cluster-5jm99.5jm99.sandbox2819.opentlc.com",
     "port": 443,
     "getAll": "/fares",
     "create": "/fares"

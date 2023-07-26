@@ -62,7 +62,7 @@ const updateScreen = () => {
 }
 
     useEffect(() => {
-        updateScreen(config)
+        updateScreen()
     }, [])
 
     return (

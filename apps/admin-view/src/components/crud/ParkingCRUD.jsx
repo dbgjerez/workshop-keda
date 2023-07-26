@@ -1,67 +1,50 @@
 import { useEffect, useState } from "react";
-import { Icon, Form, FormGroup, Grid, Table, Checkbox } from 'semantic-ui-react'
+import { Grid, Table, Checkbox, Input } from 'semantic-ui-react'
 
 const ParkingCRUD = (config) => {
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isParked, setIsParked] = useState({});
+    const [isParked, setIsParked] = useState(false);
+    const [plate, setPlateFilter] = useState("");
     const [data, setData] = useState([]);
-    const [item, setItem] = useState({});
-    const [stock, setStock] = useState({});
 
     const filterParked = (e, value) => {
         setIsParked(value.checked)
-        updateScreen()
+        updateData(value.checked, plate)
     }
 
-    const handleStock = (e) => {
-        setStock({
-            ...stock,
-            quantity: e.target.value
-        })
+    const filterPlate = (e, data) => {
+        setPlateFilter(data.value)
+        updateData(isParked, data.value)
     }
 
-    const createBook = () => {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(item)
-        };
-        fetch(`http://localhost:8080/book/`, requestOptions)
+    const updateData = (parked, plate) => {
+        let url = `https://parking-crud-dev-data.apps.cluster-5jm99.5jm99.sandbox2819.opentlc.com/parking`
+        if (parked) url+='?parked=true'
+        else url+='?parked=false'
+        if (plate!=="") url+='&plate='+plate
+        
+        fetch(url)  
             .then(
                 (res) => {
                     if(!res.ok) throw new Error(res.status)
                     else return res.json()
                 }
-            ).then(updateScreen)
+            ).then(
+                (result) => (
+                    setIsLoaded(true),
+                    setData(result)
+                ),
+                (error) => (
+                    setIsLoaded(true),
+                    setError(error)
+                )
+            )
     }
 
-    const deleteById = (e) => {
-        console.log(e.target.dataset.id)
-        fetch(`http://localhost:8080/book/`+e.target.dataset.id, { method: 'DELETE' })
-            .then(updateScreen)
-    }
-    
-const updateScreen = () => {
-    let url = `https://parking-crud-dev-data.apps.cluster-cdg8z.cdg8z.sandbox1734.opentlc.com/parking`
-    if (isParked) url+='?parked=true'
-    fetch(url)  
-        .then(
-            (res) => {
-                if(!res.ok) throw new Error(res.status)
-                else return res.json()
-            }
-        ).then(
-            (result) => (
-                setIsLoaded(true),
-                setData(result)
-            ),
-            (error) => (
-                setIsLoaded(true),
-                setError(error)
-            )
-        )
-    }
+    useEffect(() => {
+        updateData(false,"")
+    }, [])
 
     const stringToDate = (str) => {
         if (str == null) return ""
@@ -80,17 +63,20 @@ const updateScreen = () => {
         return Math.round(Math.abs(new Date(dateIn) - new Date(dateOut))/1000/60);
     }
 
-    useEffect(() => {
-        updateScreen()
-    }, [])
-
     return (
         <Grid celled>
             <Grid.Row>
-                <Grid.Column width={11}>
+                <Grid.Column width={3}>
                     <Checkbox
                         label="Into the parking"
                         onChange={filterParked}
+                    />
+                </Grid.Column>
+                <Grid.Column>
+                    <Input
+                        label="Plate"
+                        icon='search'
+                        onChange={filterPlate}
                     />
                 </Grid.Column>
             </Grid.Row>
@@ -109,15 +95,15 @@ const updateScreen = () => {
                         <Table.Body>
                             {
                                 isLoaded ? 
-                                    data.map((data)=> {
+                                    data.map((item)=> {
                                         return (
-                                            <Table.Row key={data.id}>
-                                                <Table.Cell>{data.plate}</Table.Cell>
-                                                <Table.Cell>{data.vehicleType}</Table.Cell>
-                                                <Table.Cell>{stringToDate(data.entranceDate)}</Table.Cell>
-                                                <Table.Cell>{stringToDate(data.departureDate)}</Table.Cell>
+                                            <Table.Row key={item.id}>
+                                                <Table.Cell>{item.plate}</Table.Cell>
+                                                <Table.Cell>{item.vehicleType}</Table.Cell>
+                                                <Table.Cell>{stringToDate(item.entranceDate)}</Table.Cell>
+                                                <Table.Cell>{stringToDate(item.departureDate)}</Table.Cell>
                                                 <Table.Cell>
-                                                    {minutes(data.entranceDate, data.departureDate)}
+                                                    {minutes(item.entranceDate, item.departureDate)}
                                                 </Table.Cell>
                                             </Table.Row>
                                         )
