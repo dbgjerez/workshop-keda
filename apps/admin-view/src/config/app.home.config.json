@@ -1,0 +1,12 @@
+{
+    "cars": {
+        "init": 1,
+        "refresh": 2,
+        "icon": "car"
+    },
+    "money": {
+        "init": 10,
+        "refresh": 10,
+        "icon": "euro"
+    }
+}
